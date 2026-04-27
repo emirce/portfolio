@@ -2,9 +2,14 @@
 ---
 
 <a href="/" class="mark" aria-label="Emir Celovic — home">
-  <span class="mark__bracket" aria-hidden="true">[</span
-  ><span class="mark__letters">EC</span
-  ><span class="mark__bracket" aria-hidden="true">]</span>
+  <img
+    src="/img/bear_drawing.webp"
+    alt=""
+    class="mark__logo"
+    width="24"
+    height="24"
+    decoding="async"
+  >
   <span class="mark__slash" aria-hidden="true">/</span>
 </a>
 
@@ -24,6 +29,12 @@
 .mark__bracket {
   color: var(--c-accent);
   transition: color 220ms var(--ease-out);
+}
+.mark__logo {
+  height: 1.6em;
+  width: auto;
+  display: block;
+  align-self: center;
 }
 .mark__slash {
   color: var(--c-faint);
