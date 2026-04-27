@@ -167,7 +167,7 @@ const artPreview = allArt
 
 .hero {
   display: grid;
-  gap: var(--r-7);
+  gap: var(--r-6);
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
 }
@@ -175,19 +175,21 @@ const artPreview = allArt
   display: grid;
   gap: var(--r-7);
   min-width: 0;
+  order: 2;
 }
 .hero__media {
   margin: 0;
   min-width: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  order: 1;
 }
 .hero__media img {
   display: block;
   width: 100%;
   height: auto;
-  max-width: 460px;
+  max-width: 100px;
   mix-blend-mode: multiply;
 }
 @media (min-width: 860px) {
@@ -195,8 +197,15 @@ const artPreview = allArt
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
     gap: var(--r-8);
   }
+  .hero__main {
+    order: 0;
+  }
   .hero__media {
     justify-content: flex-end;
+    order: 0;
+  }
+  .hero__media img {
+    max-width: 460px;
   }
 }
 .hero__intro {
@@ -258,10 +267,12 @@ const artPreview = allArt
   height: 100%;
   object-fit: cover;
   mix-blend-mode: multiply;
+  transform: scale(1.25);
+  transform-origin: center;
   transition: transform 600ms var(--ease-out);
 }
 .art-strip__link:hover img {
-  transform: scale(1.02);
+  transform: scale(1);
 }
 @media (max-width: 540px) {
   .art-strip__grid {
