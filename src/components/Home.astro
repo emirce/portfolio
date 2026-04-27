@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import SectionHeader from "./SectionHeader.astro";
-import ProjectRow from "./ProjectRow.astro";
-import PostRow from "./PostRow.astro";
 import ContactList from "./ContactList.astro";
+import PostRow from "./PostRow.astro";
+import ProjectRow from "./ProjectRow.astro";
+import SectionHeader from "./SectionHeader.astro";
 
 const heroContacts = [
   {
@@ -64,9 +64,7 @@ const artPreview = allArt
           Currently building <i>Kord</i>.
         </p>
 
-        <div class="reveal reveal-3">
-          <ContactList items={heroContacts} />
-        </div>
+        <div class="reveal reveal-3"><ContactList items={heroContacts} /></div>
       </div>
 
       <figure class="hero__media reveal reveal-3" aria-hidden="true">

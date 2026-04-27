@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
-import SectionHeader from "./SectionHeader.astro";
 import ArtPiece from "./ArtPiece.astro";
+import SectionHeader from "./SectionHeader.astro";
 
 const all = await getCollection("art");
 const pieces = all.sort((a, b) => a.data.order - b.data.order);
