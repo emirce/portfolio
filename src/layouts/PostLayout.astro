@@ -1,28 +1,25 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import type { Lang } from '../i18n/utils';
-import { useTranslations, localizePath } from '../i18n/utils';
+import { t } from '../i18n/utils';
 
 interface Props {
-  lang: Lang;
   title: string;
   date: Date;
   summary: string;
   number?: string;
 }
 
-const { lang, title, date, summary, number = '04' } = Astro.props;
-const t = useTranslations(lang);
+const { title, date, summary, number = '04' } = Astro.props;
 
-const dateLong = new Intl.DateTimeFormat(lang === 'de' ? 'de-DE' : 'en-GB', {
+const dateLong = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 }).format(date);
 ---
 
-<BaseLayout lang={lang} title={`${title} — Emir Celovic`} description={summary}>
+<BaseLayout title={`${title} — Emir Celovic`} description={summary}>
   <article class="post container">
     <SectionHeader number={number} label={t('sec.04.label')} />
 
@@ -41,8 +38,8 @@ const dateLong = new Intl.DateTimeFormat(lang === 'de' ? 'de-DE' : 'en-GB', {
     </div>
 
     <nav class="post__nav reveal reveal-4">
-      <a class="linklike" href={localizePath('/writing/', lang)}>← {t('writing.see_all')}</a>
-      <a class="linklike" href={localizePath('/', lang)}>{t('nav.back')}</a>
+      <a class="linklike" href="/writing/">← {t('writing.see_all')}</a>
+      <a class="linklike" href="/">{t('nav.back')}</a>
     </nav>
   </article>
 </BaseLayout>

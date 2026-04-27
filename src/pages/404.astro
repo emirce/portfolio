@@ -1,19 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import { useTranslations, getLangFromUrl, localizePath } from '../i18n/utils';
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { t } from '../i18n/utils';
 ---
 
-<BaseLayout lang={lang} title={`${t('err.404.title')} — Emir Celovic`}>
+<BaseLayout title={`${t('err.404.title')} — Emir Celovic`}>
   <div class="four container">
     <SectionHeader number="00" label={t('err.404.eyebrow')} />
     <div class="four__inner reveal reveal-1">
       <h1 class="four__title">{t('err.404.title')}</h1>
       <p class="lead">{t('err.404.body')}</p>
-      <a class="linklike four__cta" href={localizePath('/', lang)}>← {t('err.404.cta')}</a>
+      <a class="linklike four__cta" href="/">← {t('err.404.cta')}</a>
     </div>
   </div>
 </BaseLayout>

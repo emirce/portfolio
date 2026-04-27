@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import PostLayout from '../../../layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', (e) => e.data.lang === 'en' && !e.data.draft);
+  const posts = await getCollection('posts', (e) => !e.data.draft);
   return posts.map((post) => ({
     params: { slug: post.data.slug },
     props: { post },
@@ -15,7 +15,6 @@ const { Content } = await render(post);
 ---
 
 <PostLayout
-  lang="en"
   title={post.data.title}
   date={post.data.date}
   summary={post.data.summary}

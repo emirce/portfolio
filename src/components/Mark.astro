@@ -1,16 +1,7 @@
 ---
-import type { Lang } from '../i18n/utils';
-import { localizePath } from '../i18n/utils';
-
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const href = localizePath('/', lang);
 ---
 
-<a href={href} class="mark" aria-label="Emir Celovic — home">
+<a href="/" class="mark" aria-label="Emir Celovic — home">
   <span class="mark__bracket" aria-hidden="true">[</span><span class="mark__letters">EC</span><span class="mark__bracket" aria-hidden="true">]</span>
   <span class="mark__slash" aria-hidden="true">/</span>
 </a>

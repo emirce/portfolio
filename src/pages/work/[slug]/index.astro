@@ -4,7 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ProjectDetail from '../../../components/ProjectDetail.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects', (e) => e.data.lang === 'en' && e.data.status !== 'upcoming');
+  const projects = await getCollection('projects', (e) => e.data.status !== 'upcoming');
   return projects.map((project) => ({
     params: { slug: project.data.slug },
     props: { project },
@@ -16,12 +16,10 @@ const { Content } = await render(project);
 ---
 
 <BaseLayout
-  lang="en"
   title={`${project.data.title} — Emir Celovic`}
   description={project.data.summary}
 >
   <ProjectDetail
-    lang="en"
     number={project.data.number}
     title={project.data.title}
     year={project.data.year}

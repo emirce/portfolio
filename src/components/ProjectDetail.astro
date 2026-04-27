@@ -1,11 +1,9 @@
 ---
-import type { Lang } from '../i18n/utils';
-import { useTranslations, localizePath } from '../i18n/utils';
+import { t } from '../i18n/utils';
 import SectionHeader from './SectionHeader.astro';
 import LabelValue from './LabelValue.astro';
 
 interface Props {
-  lang: Lang;
   number: string;
   title: string;
   year: number;
@@ -18,7 +16,6 @@ interface Props {
 }
 
 const {
-  lang,
   number,
   title,
   year,
@@ -29,7 +26,6 @@ const {
   repo,
   status,
 } = Astro.props;
-const t = useTranslations(lang);
 const isUpcoming = status === 'upcoming';
 ---
 
@@ -83,7 +79,7 @@ const isUpcoming = status === 'upcoming';
   </div>
 
   <nav class="proj__nav reveal reveal-4">
-    <a class="linklike" href={localizePath('/', lang)}>← {t('nav.back')}</a>
+    <a class="linklike" href="/">← {t('nav.back')}</a>
   </nav>
 </article>
 

@@ -1,6 +1,5 @@
 ---
 slug: colophon
-lang: en
 title: Colophon
 date: 2026-04-26
 summary: Notes on the typography, palette, and engineering choices behind this site.
@@ -22,7 +21,7 @@ A single committed palette: ink (`#111111`) on warm paper (`#F4F1EA`), with one 
 
 Built with **Astro 6**, vanilla CSS, and design tokens. No framework runtime, no Tailwind, no animation library. The only motion is one staggered entrance animation on first paint, suppressed when `prefers-reduced-motion: reduce` is set.
 
-The site is internationalised in English and German via Astro's built-in i18n routing. Content lives in collections; pages are static.
+Content lives in collections; pages are static.
 
 ## What's missing
 

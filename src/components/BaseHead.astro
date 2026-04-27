@@ -1,22 +1,17 @@
 ---
-import type { Lang } from '../i18n/utils';
-import { useTranslations, alternatePath, otherLang, defaultLang } from '../i18n/utils';
+import { t } from '../i18n/utils';
 
 interface Props {
-  lang: Lang;
   title?: string;
   description?: string;
   pathname: string;
 }
 
-const { lang, title, description, pathname } = Astro.props;
-const t = useTranslations(lang);
+const { title, description, pathname } = Astro.props;
 
 const fullTitle = title ?? t('meta.title');
 const desc = description ?? t('meta.description');
 const canonical = new URL(pathname, Astro.site).toString();
-const altPath = alternatePath(pathname.replace(/^\/(de)\//, '/').replace(/^\/de\/?$/, '/'), lang);
-const altLocale = otherLang(lang);
 ---
 
 <meta charset="UTF-8" />
@@ -29,9 +24,6 @@ const altLocale = otherLang(lang);
 <meta name="description" content={desc} />
 
 <link rel="canonical" href={canonical} />
-<link rel="alternate" hreflang={altLocale} href={new URL(altPath, Astro.site).toString()} />
-<link rel="alternate" hreflang={lang} href={canonical} />
-<link rel="alternate" hreflang="x-default" href={new URL(pathname.startsWith('/de') ? altPath : pathname, Astro.site).toString()} />
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -55,8 +47,7 @@ const altLocale = otherLang(lang);
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={desc} />
 <meta property="og:url" content={canonical} />
-<meta property="og:locale" content={lang === 'de' ? 'de_DE' : 'en_US'} />
-<meta property="og:locale:alternate" content={altLocale === 'de' ? 'de_DE' : 'en_US'} />
+<meta property="og:locale" content="en_US" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={desc} />

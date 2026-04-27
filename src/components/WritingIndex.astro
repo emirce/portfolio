@@ -1,18 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import type { Lang } from '../i18n/utils';
-import { useTranslations, localizePath } from '../i18n/utils';
+import { t } from '../i18n/utils';
 import SectionHeader from './SectionHeader.astro';
 import PostRow from './PostRow.astro';
 
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const t = useTranslations(lang);
-
-const all = await getCollection('posts', (e) => e.data.lang === lang && !e.data.draft);
+const all = await getCollection('posts', (e) => !e.data.draft);
 const posts = all.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date));
 ---
 
@@ -22,24 +14,20 @@ const posts = all.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date)
   <header class="windex__head reveal reveal-1">
     <h1 class="windex__title">{t('nav.writing')}</h1>
     <p class="lead">
-      {posts.length > 0
-        ? lang === 'de'
-          ? 'Notizen zu Software, Werkzeugen und dem, was am Schreibtisch hängen bleibt.'
-          : 'Short notes on software, tooling, and whatever sticks at the desk.'
-        : t('writing.empty')}
+      {posts.length > 0 ? t('writing.intro') : t('writing.empty')}
     </p>
   </header>
 
   {posts.length > 0 && (
     <div class="rows reveal reveal-2">
       {posts.map((p) => (
-        <PostRow lang={lang} title={p.data.title} date={p.data.date} slug={p.data.slug} />
+        <PostRow title={p.data.title} date={p.data.date} slug={p.data.slug} />
       ))}
     </div>
   )}
 
   <nav class="windex__nav reveal reveal-3">
-    <a class="linklike" href={localizePath('/', lang)}>← {t('nav.back')}</a>
+    <a class="linklike" href="/">← {t('nav.back')}</a>
   </nav>
 </div>
 

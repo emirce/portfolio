@@ -1,20 +1,10 @@
 ---
-import type { Lang } from '../i18n/utils';
 import Mark from './Mark.astro';
-import LangSwitch from './LangSwitch.astro';
-
-interface Props {
-  lang: Lang;
-  pathname: string;
-}
-
-const { lang, pathname } = Astro.props;
 ---
 
 <header class="topbar">
   <div class="container topbar__inner">
-    <Mark lang={lang} />
-    <LangSwitch lang={lang} pathname={pathname} />
+    <Mark />
   </div>
   <hr class="rule" />
 </header>

@@ -1,20 +1,7 @@
 ---
-import type { Lang } from '../i18n/utils';
-import { useTranslations, localizePath, alternatePath, otherLang } from '../i18n/utils';
+import { t } from '../i18n/utils';
 import SectionHeader from './SectionHeader.astro';
 
-interface Props {
-  lang: Lang;
-  pathname: string;
-}
-
-const { lang, pathname } = Astro.props;
-const t = useTranslations(lang);
-
-const normalisedPath = pathname.replace(/^\/de\/?/, '/').replace(/\/+$/, '/') || '/';
-const altPath = alternatePath(normalisedPath, lang);
-const altLang = otherLang(lang).toUpperCase();
-const colophonHref = localizePath('/writing/colophon/', lang);
 const year = new Date().getFullYear();
 ---
 
@@ -64,9 +51,7 @@ const year = new Date().getFullYear();
     <div class="foot__bottom">
       <span class="foot__copy">© {year} Emir Celovic · {t('foot.copy')}</span>
       <span class="foot__meta">
-        <a class="foot__link" href={colophonHref}>{t('foot.colophon')}</a>
-        <span class="foot__sep" aria-hidden="true">·</span>
-        <a class="foot__link" href={altPath} hreflang={otherLang(lang)}>{altLang}</a>
+        <a class="foot__link" href="/writing/colophon/">{t('foot.colophon')}</a>
       </span>
     </div>
   </div>

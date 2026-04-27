@@ -1,6 +1,5 @@
 ---
 slug: bullstudio
-lang: en
 number: "001"
 title: bullstudio
 role: Designer & engineer

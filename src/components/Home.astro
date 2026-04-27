@@ -1,24 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
-import type { Lang } from '../i18n/utils';
-import { useTranslations, localizePath } from '../i18n/utils';
+import { t } from '../i18n/utils';
 import SectionHeader from './SectionHeader.astro';
 import LabelValue from './LabelValue.astro';
 import StatusDot from './StatusDot.astro';
 import ProjectRow from './ProjectRow.astro';
 import PostRow from './PostRow.astro';
 
-interface Props {
-  lang: Lang;
-}
-
-const { lang } = Astro.props;
-const t = useTranslations(lang);
-
-const allProjects = await getCollection('projects', (e) => e.data.lang === lang);
+const allProjects = await getCollection('projects');
 const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
-const allPosts = await getCollection('posts', (e) => e.data.lang === lang && !e.data.draft);
+const allPosts = await getCollection('posts', (e) => !e.data.draft);
 const posts = allPosts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date)).slice(0, 5);
 ---
 
@@ -59,7 +51,6 @@ const posts = allPosts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.
     <div class="rows reveal reveal-2">
       {projects.map((p) => (
         <ProjectRow
-          lang={lang}
           number={p.data.number}
           title={p.data.title}
           year={p.data.year}
@@ -92,10 +83,10 @@ const posts = allPosts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.
     {posts.length > 0 ? (
       <div class="rows reveal reveal-2">
         {posts.map((p) => (
-          <PostRow lang={lang} title={p.data.title} date={p.data.date} slug={p.data.slug} />
+          <PostRow title={p.data.title} date={p.data.date} slug={p.data.slug} />
         ))}
         <div class="rows__more">
-          <a class="linklike" href={localizePath('/writing/', lang)}>{t('writing.see_all')} →</a>
+          <a class="linklike" href="/writing/">{t('writing.see_all')} →</a>
         </div>
       </div>
     ) : (
