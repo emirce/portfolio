@@ -1,7 +1,6 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import { t } from '../i18n/utils';
+import BaseLayout from "./BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 
 interface Props {
   title: string;
@@ -10,18 +9,18 @@ interface Props {
   number?: string;
 }
 
-const { title, date, summary, number = '04' } = Astro.props;
+const { title, date, summary, number = "04" } = Astro.props;
 
-const dateLong = new Intl.DateTimeFormat('en-GB', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+const dateLong = new Intl.DateTimeFormat("en-GB", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 }).format(date);
 ---
 
 <BaseLayout title={`${title} — Emir Celovic`} description={summary}>
   <article class="post container">
-    <SectionHeader number={number} label={t('sec.04.label')} />
+    <SectionHeader number={number} label="Writing" />
 
     <header class="post__head reveal reveal-1">
       <p class="post__eyebrow">
@@ -31,60 +30,62 @@ const dateLong = new Intl.DateTimeFormat('en-GB', {
       <p class="post__lede">{summary}</p>
     </header>
 
-    <hr class="rule post__rule reveal reveal-2" />
+    <hr class="rule post__rule reveal reveal-2">
 
-    <div class="post__body prose reveal reveal-3">
-      <slot />
-    </div>
+    <div class="post__body prose reveal reveal-3"><slot /></div>
 
     <nav class="post__nav reveal reveal-4">
-      <a class="linklike" href="/writing/">← {t('writing.see_all')}</a>
-      <a class="linklike" href="/">{t('nav.back')}</a>
+      <a class="linklike" href="/writing/">← All notes</a>
+      <a class="linklike" href="/">Back to index</a>
     </nav>
   </article>
 </BaseLayout>
 
 <style>
-  .post {
-    padding-top: var(--r-7);
-  }
-  .post__head { margin-bottom: var(--r-6); }
-  .post__eyebrow {
-    font-family: var(--f-mono);
-    font-size: var(--t-eyebrow);
-    text-transform: uppercase;
-    letter-spacing: var(--tr-eyebrow);
-    color: var(--c-mute);
-    margin-bottom: var(--r-4);
-  }
-  .post__title {
-    font-size: clamp(2rem, 5.5vw, 3.5rem);
-    line-height: 1.05;
-    letter-spacing: var(--tr-tighter);
-    font-variation-settings: "opsz" 48;
-    margin-bottom: var(--r-4);
-    max-width: 22ch;
-  }
-  .post__lede {
-    color: var(--c-mute);
-    font-size: var(--t-lead);
-    max-width: 56ch;
-  }
-  .post__rule {
-    margin: var(--r-7) 0 var(--r-7);
-  }
-  .post__body { padding-bottom: var(--r-8); }
-  .post__nav {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--r-4);
-    padding-top: var(--r-6);
-    border-top: 1px solid var(--c-rule);
-    font-family: var(--f-mono);
-    font-size: var(--t-label);
-    text-transform: uppercase;
-    letter-spacing: var(--tr-wide);
-    color: var(--c-mute);
-  }
+.post {
+  padding-top: var(--r-7);
+}
+.post__head {
+  margin-bottom: var(--r-6);
+}
+.post__eyebrow {
+  font-family: var(--f-mono);
+  font-size: var(--t-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-eyebrow);
+  color: var(--c-mute);
+  margin-bottom: var(--r-4);
+}
+.post__title {
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: var(--tr-tighter);
+  font-variation-settings: "opsz" 48;
+  margin-bottom: var(--r-4);
+  max-width: 22ch;
+}
+.post__lede {
+  color: var(--c-mute);
+  font-size: var(--t-lead);
+  max-width: 56ch;
+}
+.post__rule {
+  margin: var(--r-7) 0 var(--r-7);
+}
+.post__body {
+  padding-bottom: var(--r-8);
+}
+.post__nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--r-4);
+  padding-top: var(--r-6);
+  border-top: 1px solid var(--c-rule);
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-wide);
+  color: var(--c-mute);
+}
 </style>

@@ -13,40 +13,33 @@ const { number, label, id } = Astro.props;
   <span class="sechead__number">{number}</span>
   <span class="sechead__dash" aria-hidden="true">——</span>
   <span class="sechead__label">{label}</span>
-  <span class="sechead__rule" aria-hidden="true"></span>
 </header>
 
 <style>
-  .sechead {
-    display: flex;
-    align-items: center;
-    gap: 0.6ch;
-    font-family: var(--f-mono);
-    font-size: var(--t-eyebrow);
-    font-weight: 600;
-    letter-spacing: var(--tr-eyebrow);
-    text-transform: uppercase;
-    color: var(--c-ink);
-    margin-bottom: var(--r-7);
-  }
-  .sechead__pilcrow {
-    color: var(--c-accent);
-    font-weight: 600;
-  }
-  .sechead__number {
-    color: var(--c-mute);
-  }
-  .sechead__dash {
-    color: var(--c-faint);
-    letter-spacing: 0;
-  }
-  .sechead__label {
-    color: var(--c-ink);
-  }
-  .sechead__rule {
-    flex: 1;
-    height: 1px;
-    background: var(--c-rule);
-    margin-left: 0.6ch;
-  }
+.sechead {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6ch;
+  font-family: var(--f-mono);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-ink);
+  margin-bottom: var(--r-6);
+}
+.sechead__pilcrow {
+  color: var(--c-accent);
+  font-weight: 600;
+}
+.sechead__number {
+  color: var(--c-mute);
+}
+.sechead__dash {
+  color: var(--c-faint);
+  letter-spacing: 0;
+}
+.sechead__label {
+  color: var(--c-ink);
+}
 </style>

@@ -1,20 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
-import { t } from '../i18n/utils';
-import SectionHeader from './SectionHeader.astro';
-import PostRow from './PostRow.astro';
+import { getCollection } from "astro:content";
+import SectionHeader from "./SectionHeader.astro";
+import PostRow from "./PostRow.astro";
 
-const all = await getCollection('posts', (e) => !e.data.draft);
-const posts = all.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date));
+const all = await getCollection("posts", (e) => !e.data.draft);
+const posts = all.sort(
+  (a, b) => +new Date(b.data.date) - +new Date(a.data.date),
+);
 ---
 
 <div class="windex container">
-  <SectionHeader number="04" label={t('sec.04.label')} />
+  <SectionHeader number="04" label="Writing" />
 
   <header class="windex__head reveal reveal-1">
-    <h1 class="windex__title">{t('nav.writing')}</h1>
+    <h1 class="windex__title">Writing</h1>
     <p class="lead">
-      {posts.length > 0 ? t('writing.intro') : t('writing.empty')}
+      {posts.length > 0
+        ? 'Short notes on software, tooling, and whatever sticks at the desk.'
+        : 'Notes in progress. The first piece will arrive here when it is ready.'}
     </p>
   </header>
 
@@ -27,27 +30,31 @@ const posts = all.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date)
   )}
 
   <nav class="windex__nav reveal reveal-3">
-    <a class="linklike" href="/">← {t('nav.back')}</a>
+    <a class="linklike" href="/">← Back to index</a>
   </nav>
 </div>
 
 <style>
-  .windex { padding-top: var(--r-7); }
-  .windex__head { margin-bottom: var(--r-7); }
-  .windex__title {
-    font-size: clamp(2rem, 5.5vw, 3.5rem);
-    line-height: 1.05;
-    letter-spacing: var(--tr-tighter);
-    font-variation-settings: "opsz" 48;
-    margin-bottom: var(--r-4);
-  }
-  .windex__nav {
-    margin-top: var(--r-7);
-    padding-top: var(--r-5);
-    border-top: 1px solid var(--c-rule);
-    font-family: var(--f-mono);
-    font-size: var(--t-label);
-    text-transform: uppercase;
-    letter-spacing: var(--tr-wide);
-  }
+.windex {
+  padding-top: var(--r-7);
+}
+.windex__head {
+  margin-bottom: var(--r-7);
+}
+.windex__title {
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: var(--tr-tighter);
+  font-variation-settings: "opsz" 48;
+  margin-bottom: var(--r-4);
+}
+.windex__nav {
+  margin-top: var(--r-7);
+  padding-top: var(--r-5);
+  border-top: 1px solid var(--c-rule);
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-wide);
+}
 </style>

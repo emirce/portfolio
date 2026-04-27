@@ -1,36 +1,41 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import { t } from '../i18n/utils';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 ---
 
-<BaseLayout title={`${t('err.404.title')} — Emir Celovic`}>
+<BaseLayout title="Page not found. — Emir Celovic">
   <div class="four container">
-    <SectionHeader number="00" label={t('err.404.eyebrow')} />
+    <SectionHeader number="00" label="Error 404" />
     <div class="four__inner reveal reveal-1">
-      <h1 class="four__title">{t('err.404.title')}</h1>
-      <p class="lead">{t('err.404.body')}</p>
-      <a class="linklike four__cta" href="/">← {t('err.404.cta')}</a>
+      <h1 class="four__title">Page not found.</h1>
+      <p class="lead">
+        The page you were looking for does not exist, or has been moved. Return
+        to the index.
+      </p>
+      <a class="linklike four__cta" href="/">← Back to index</a>
     </div>
   </div>
 </BaseLayout>
 
 <style>
-  .four { padding-top: var(--r-7); padding-bottom: var(--r-9); }
-  .four__title {
-    font-size: clamp(2.5rem, 7vw, 4.5rem);
-    line-height: 1.05;
-    letter-spacing: var(--tr-tighter);
-    font-variation-settings: "opsz" 96;
-    margin-bottom: var(--r-4);
-    max-width: 18ch;
-  }
-  .four__cta {
-    margin-top: var(--r-5);
-    display: inline-block;
-    font-family: var(--f-mono);
-    font-size: var(--t-label);
-    text-transform: uppercase;
-    letter-spacing: var(--tr-wide);
-  }
+.four {
+  padding-top: var(--r-7);
+  padding-bottom: var(--r-9);
+}
+.four__title {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: var(--tr-tighter);
+  font-variation-settings: "opsz" 96;
+  margin-bottom: var(--r-4);
+  max-width: 18ch;
+}
+.four__cta {
+  margin-top: var(--r-5);
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-wide);
+}
 </style>

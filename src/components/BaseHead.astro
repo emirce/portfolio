@@ -1,6 +1,4 @@
 ---
-import { t } from '../i18n/utils';
-
 interface Props {
   title?: string;
   description?: string;
@@ -9,24 +7,28 @@ interface Props {
 
 const { title, description, pathname } = Astro.props;
 
-const fullTitle = title ?? t('meta.title');
-const desc = description ?? t('meta.description');
+const fullTitle = title ?? "Emir Celovic — Software for the world.";
+const desc =
+  description ??
+  "Personal portfolio of Emir Celovic — software engineer building considered, calm software. Currently bullstudio.";
 const canonical = new URL(pathname, Astro.site).toString();
 ---
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="generator" content={Astro.generator} />
-<meta name="color-scheme" content="light only" />
-<meta name="theme-color" content="#F4F1EA" />
+<meta charset="UTF-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
+<meta name="generator" content={Astro.generator}>
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#F4F1EA">
 
 <title>{fullTitle}</title>
-<meta name="description" content={desc} />
+<meta name="description" content={desc}>
 
-<link rel="canonical" href={canonical} />
+<link rel="canonical" href={canonical}>
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 
 <link
   rel="preload"
@@ -34,20 +36,20 @@ const canonical = new URL(pathname, Astro.site).toString();
   type="font/woff2"
   href="/fonts/MonaSans-VF.woff2"
   crossorigin="anonymous"
-/>
+>
 <link
   rel="preload"
   as="font"
   type="font/woff2"
   href="/fonts/CommitMono-VF.woff2"
   crossorigin="anonymous"
-/>
+>
 
-<meta property="og:type" content="website" />
-<meta property="og:title" content={fullTitle} />
-<meta property="og:description" content={desc} />
-<meta property="og:url" content={canonical} />
-<meta property="og:locale" content="en_US" />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content={fullTitle} />
-<meta name="twitter:description" content={desc} />
+<meta property="og:type" content="website">
+<meta property="og:title" content={fullTitle}>
+<meta property="og:description" content={desc}>
+<meta property="og:url" content={canonical}>
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content={fullTitle}>
+<meta name="twitter:description" content={desc}>
