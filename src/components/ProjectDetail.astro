@@ -42,13 +42,11 @@ const isUpcoming = status === "upcoming";
 
   <div class="proj__grid reveal reveal-3">
     <dl class="proj__meta">
-      {role && <LabelValue label="Role" value={role} />}
-      <LabelValue label="Year" value={String(year)} />
       {tags.length > 0 && (
         <LabelValue label="Tags" value={tags.join(' · ')} />
       )}
       {link && (
-        <LabelValue label="Live">
+        <LabelValue label="Repo">
           <a class="linklike" href={link} rel="noopener noreferrer" target="_blank">
             {link.replace(/^https?:\/\//, '')}
           </a>
@@ -127,6 +125,14 @@ const isUpcoming = status === "upcoming";
 }
 .proj__meta {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--r-4);
+}
+.proj__meta :global(.lv) {
+  grid-template-columns: 1fr;
+  gap: 2px;
+  padding: 0;
 }
 .proj__body {
   padding-bottom: var(--r-7);

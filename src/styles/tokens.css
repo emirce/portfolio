@@ -10,6 +10,23 @@
 	--c-accent: #c24a1f;
 	--c-accent-deep: #9c3a14;
 
+	/* Code tokens — warm, restrained palette */
+	--c-code-string: #5e6d2c;
+	--c-code-num: #8a4f1a;
+
+	/* Shiki token colors (theme: css-variables) */
+	--shiki-foreground: var(--c-ink);
+	--shiki-background: var(--c-paper-deep);
+	--shiki-token-comment: var(--c-mute);
+	--shiki-token-keyword: var(--c-accent);
+	--shiki-token-string: var(--c-code-string);
+	--shiki-token-string-expression: var(--c-code-string);
+	--shiki-token-constant: var(--c-code-num);
+	--shiki-token-function: var(--c-ink);
+	--shiki-token-parameter: var(--c-ink);
+	--shiki-token-punctuation: var(--c-faint);
+	--shiki-token-link: var(--c-accent);
+
 	/* Type */
 	--f-sans:
 		"Mona Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;

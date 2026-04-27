@@ -3,18 +3,25 @@ slug: bullstudio
 number: "001"
 title: bullstudio
 role: Designer & engineer
-year: 2024
+year: 2026
 tags:
   - typescript
-  - ui
-  - tooling
-summary: A contemporary interface for Bull and BullMQ job queues, built around clarity at scale.
+  - react
+  - vite
+  - nodejs
+summary: Modern open-source dashboard for Bull and BullMQ jobs.
 link: https://github.com/emirce/bullstudio
 repo: https://github.com/emirce/bullstudio
 status: live
 order: 1
 ---
 
-bullstudio is a quiet, focused dashboard for inspecting and operating Bull and BullMQ job queues. The goal: replace the dense, dated tooling around the Bull ecosystem with something engineers actually want open in a tab.
+Bullstudio is a lightweight open-source dashboard for Bull and BullMQ jobs. I got the idea for it when I was working with BullMQ for a project and needed some insights how my jobs were performing. Existing solutions required me to couple them into my code via adapters etc. I wondered if it wouldn't be nice if there was a queue dashboard that I could just start from my command line. Something like <a href="https://www.prisma.io/studio" target="_blank">Prisma Studio</a> but for queues. And that's how Bullstudio was born.
 
-It is opinionated about the things that matter — readable failures, honest charts, fast filtering — and unopinionated about everything else. TypeScript end to end, designed to slot into existing infrastructure without ceremony.
+You just run it from the command line and it communicates to your Redis instance directly:
+
+```js
+npx bullstudio
+```
+
+Built with React, Vite, Tanstack Router, TRPC. Served from a lightweight NodeJs server that runs via CLI. Production teams usually run Bullstudio in a Docker container.
