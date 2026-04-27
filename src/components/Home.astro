@@ -3,6 +3,34 @@ import { getCollection } from "astro:content";
 import SectionHeader from "./SectionHeader.astro";
 import ProjectRow from "./ProjectRow.astro";
 import PostRow from "./PostRow.astro";
+import ContactList from "./ContactList.astro";
+
+const heroContacts = [
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/emir-celovic",
+    href: "https://www.linkedin.com/in/emir-celovic-68316a217/",
+    icon: "/icons/linkedin.svg",
+  },
+  {
+    label: "X",
+    value: "x.com/emirthedev",
+    href: "https://x.com/emirthedev",
+    icon: "/icons/x.svg",
+  },
+  {
+    label: "GitHub",
+    value: "github.com/emirce",
+    href: "https://github.com/emirce",
+    icon: "/icons/github.svg",
+  },
+  {
+    label: "Email",
+    value: "emir@celovic.com",
+    href: "mailto:emir@celovic.com",
+    icon: "/icons/email.svg",
+  },
+];
 
 const R2_ART_BASE = "https://assets.celovic.com/art/";
 
@@ -36,55 +64,9 @@ const artPreview = allArt
           Currently building <i>Kord</i>.
         </p>
 
-        <dl class="hero__contacts reveal reveal-3">
-          <div class="hero__contact">
-            <dt class="hero__contact-label">LinkedIn</dt>
-            <dd class="hero__contact-value">
-              <a
-                class="linklike"
-                href="https://www.linkedin.com/in/emir-celovic-68316a217/"
-                rel="noopener noreferrer me"
-                target="_blank"
-              >
-                linkedin.com/in/emir-celovic
-              </a>
-            </dd>
-          </div>
-          <div class="hero__contact">
-            <dt class="hero__contact-label">X</dt>
-            <dd class="hero__contact-value">
-              <a
-                class="linklike"
-                href="https://x.com/emirthedev"
-                rel="noopener noreferrer me"
-                target="_blank"
-              >
-                x.com/emirthedev
-              </a>
-            </dd>
-          </div>
-          <div class="hero__contact">
-            <dt class="hero__contact-label">GitHub</dt>
-            <dd class="hero__contact-value">
-              <a
-                class="linklike"
-                href="https://github.com/emirce"
-                rel="noopener noreferrer me"
-                target="_blank"
-              >
-                github.com/emirce
-              </a>
-            </dd>
-          </div>
-          <div class="hero__contact">
-            <dt class="hero__contact-label">Email</dt>
-            <dd class="hero__contact-value">
-              <a class="linklike" href="mailto:emir@celovic.com"
-                >emir@celovic.com</a
-              >
-            </dd>
-          </div>
-        </dl>
+        <div class="reveal reveal-3">
+          <ContactList items={heroContacts} />
+        </div>
       </div>
 
       <figure class="hero__media reveal reveal-3" aria-hidden="true">
@@ -120,32 +102,7 @@ const artPreview = allArt
 
   <section class="section" aria-labelledby="sec-03">
     <div class="reveal reveal-1">
-      <SectionHeader number="03" label="About" id="sec-03" />
-    </div>
-    <div class="section-grid reveal reveal-2">
-      <p class="label">2026 —</p>
-      <div class="prose about-prose">
-        <p>
-          I work across the stack with a quiet preference for the parts users
-          actually touch. My background is in TypeScript, Node, and the kind of
-          internal tooling that, when done right, recedes from view.
-        </p>
-        <p>
-          I care about typography, performance, and the small operational
-          details that compound. I try to write software that is honest about
-          its limits and pleasant to live with.
-        </p>
-        <p>
-          When I am not shipping, I am usually reading, walking, or sketching
-          out something that may or may not become a project.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="sec-04">
-    <div class="reveal reveal-1">
-      <SectionHeader number="04" label="Writing" id="sec-04" />
+      <SectionHeader number="03" label="Writing" id="sec-03" />
     </div>
     {posts.length > 0 ? (
       <div class="rows reveal reveal-2">
@@ -163,14 +120,14 @@ const artPreview = allArt
     )}
   </section>
 
-  <section class="section" aria-labelledby="sec-05">
+  <section class="section" aria-labelledby="sec-04">
     <div class="reveal reveal-1">
-      <SectionHeader number="05" label="Art" id="sec-05" />
+      <SectionHeader number="04" label="Art" id="sec-04" />
     </div>
     {artPreview.length > 0 ? (
       <div class="art-strip reveal reveal-2">
         <p class="art-strip__lead">
-          Maps and cartographic studies, mostly drawn by hand.
+          Maps and cartographic art. Mostly work done for Cartographr Co.
         </p>
         <ul class="art-strip__grid">
           {artPreview.map((p) => (
@@ -252,41 +209,6 @@ const artPreview = allArt
   text-wrap: pretty;
   margin: 0;
 }
-.hero__contacts {
-  margin: 0;
-  display: grid;
-  gap: 0;
-  max-width: 56ch;
-}
-.hero__contact {
-  display: grid;
-  grid-template-columns: minmax(0, 14ch) minmax(0, 1fr);
-  gap: var(--r-4);
-  padding: var(--r-2) 0;
-  align-items: baseline;
-}
-.hero__contact-label {
-  font-family: var(--f-mono);
-  font-size: var(--t-eyebrow);
-  font-weight: 500;
-  letter-spacing: var(--tr-eyebrow);
-  text-transform: uppercase;
-  color: var(--c-mute);
-}
-.hero__contact-value {
-  margin: 0;
-  font-size: var(--t-body);
-  color: var(--c-ink);
-  font-variant-numeric: tabular-nums;
-}
-@media (max-width: 540px) {
-  .hero__contact {
-    grid-template-columns: 1fr;
-    gap: 2px;
-    padding: var(--r-3) 0;
-  }
-}
-
 .rows {
   display: block;
 }
@@ -304,10 +226,6 @@ const artPreview = allArt
   max-width: 50ch;
   padding: var(--r-3) 0;
 }
-.about-prose p + p {
-  margin-top: var(--r-4);
-}
-
 .art-strip__lead {
   color: var(--c-mute);
   font-size: var(--t-lead);

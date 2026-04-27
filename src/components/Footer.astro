@@ -1,57 +1,41 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
+import ContactList from "./ContactList.astro";
 
 const year = new Date().getFullYear();
+
+const footerContacts = [
+  {
+    label: "GitHub",
+    value: "github.com/emirce",
+    href: "https://github.com/emirce",
+    icon: "/icons/github.svg",
+  },
+  {
+    label: "X",
+    value: "x.com/emirthedev",
+    href: "https://x.com/emirthedev",
+    icon: "/icons/x.svg",
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/emir-celovic",
+    href: "https://www.linkedin.com/in/emir-celovic-68316a217/",
+    icon: "/icons/linkedin.svg",
+  },
+  {
+    label: "Email",
+    value: "emir@celovic.com",
+    href: "mailto:emir@celovic.com",
+    icon: "/icons/email.svg",
+  },
+];
 ---
 
 <footer class="foot">
   <div class="container">
     <SectionHeader number="05" label="Elsewhere" id="elsewhere" />
-    <dl class="foot__list">
-      <div class="foot__row">
-        <dt class="foot__label">GitHub</dt>
-        <dd class="foot__value">
-          <a
-            class="linklike"
-            href="https://github.com/emirce"
-            rel="noopener noreferrer me"
-            target="_blank"
-          >
-            github.com/emirce
-          </a>
-        </dd>
-      </div>
-      <div class="foot__row">
-        <dt class="foot__label">X</dt>
-        <dd class="foot__value">
-          <a
-            class="linklike"
-            href="https://x.com/emirthedev"
-            rel="noopener noreferrer me"
-            target="_blank"
-          >
-            x.com/emirthedev
-          </a>
-        </dd>
-      </div>
-      <div class="foot__row">
-        <dt class="foot__label">LinkedIn</dt>
-        <dd class="foot__value">
-          <a
-            class="linklike"
-            href="https://www.linkedin.com/in/emir-celovic-68316a217/"
-            rel="noopener noreferrer me"
-            target="_blank"
-          >
-            linkedin.com/in/emir-celovic
-          </a>
-        </dd>
-      </div>
-      <div class="foot__row">
-        <dt class="foot__label">Email</dt>
-        <dd class="foot__value foot__value--mute">——</dd>
-      </div>
-    </dl>
+    <ContactList items={footerContacts} />
 
     <hr class="rule foot__rule">
 
@@ -60,7 +44,7 @@ const year = new Date().getFullYear();
         >© {year} Emir Celovic · Built quietly in 2026.</span
       >
       <span class="foot__meta">
-        <a class="foot__link" href="/writing/colophon/">Colophon</a>
+        <a class="foot__link" href="/writing/hello-world/">Hello, World!</a>
       </span>
     </div>
   </div>
@@ -73,33 +57,6 @@ const year = new Date().getFullYear();
   border-top: 1px solid var(--c-rule);
   margin-top: var(--r-9);
   background: var(--c-paper);
-}
-.foot__list {
-  display: grid;
-  gap: 0;
-  margin: 0;
-}
-.foot__row {
-  display: grid;
-  grid-template-columns: minmax(0, 14ch) minmax(0, 1fr);
-  gap: var(--r-4);
-  padding: var(--r-2) 0;
-  align-items: baseline;
-}
-.foot__label {
-  font-family: var(--f-mono);
-  font-size: var(--t-eyebrow);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-eyebrow);
-  color: var(--c-mute);
-}
-.foot__value {
-  margin: 0;
-}
-.foot__value--mute {
-  color: var(--c-faint);
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
 }
 .foot__rule {
   margin: var(--r-7) 0 var(--r-5);
@@ -133,11 +90,5 @@ const year = new Date().getFullYear();
 .foot__link:hover {
   color: var(--c-accent);
   border-bottom-color: var(--c-accent);
-}
-@media (max-width: 540px) {
-  .foot__row {
-    grid-template-columns: 1fr;
-    gap: 2px;
-  }
 }
 </style>

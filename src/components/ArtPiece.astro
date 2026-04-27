@@ -10,11 +10,22 @@ interface Props {
   alt: string;
   width: number;
   height: number;
+  copyright: string;
   eager?: boolean;
 }
 
-const { number, title, year, medium, imageKey, alt, width, height, eager } =
-  Astro.props;
+const {
+  number,
+  title,
+  year,
+  medium,
+  imageKey,
+  alt,
+  width,
+  height,
+  copyright,
+  eager,
+} = Astro.props;
 const src = `${R2_ART_BASE}${imageKey}`;
 
 const noteHtml = Astro.slots.has("default")
@@ -48,6 +59,8 @@ const hasNote = noteHtml.replace(/<[^>]*>/g, "").trim().length > 0;
           <span class="piece__medium">{medium}</span>
         </>
       )}
+      <span class="piece__sep" aria-hidden="true">·</span>
+      <span class="piece__copyright">© {copyright}</span>
     </p>
     {hasNote && <div class="piece__note prose"><slot /></div>}
   </figcaption>

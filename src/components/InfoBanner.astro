@@ -1,0 +1,60 @@
+---
+interface Props {
+  label?: string;
+  tone?: "default" | "accent";
+}
+
+const { label = "Note", tone = "default" } = Astro.props;
+---
+
+<aside class:list={["info-banner", `info-banner--${tone}`]} role="note">
+  <span class="info-banner__label">{label}</span>
+  <div class="info-banner__body"><slot /></div>
+</aside>
+
+<style>
+.info-banner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: var(--r-4);
+  padding: var(--r-4) var(--r-5);
+  margin: var(--r-6) 0;
+  border-top: 1px solid var(--c-rule-hard);
+  border-bottom: 1px solid var(--c-rule-hard);
+  background: var(--c-paper-deep);
+}
+.info-banner__label {
+  font-family: var(--f-mono);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-accent);
+  white-space: nowrap;
+}
+.info-banner__body {
+  font-family: var(--f-sans);
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--c-ink);
+}
+.info-banner__body :global(:first-child) {
+  margin-top: 0;
+}
+.info-banner__body :global(:last-child) {
+  margin-bottom: 0;
+}
+.info-banner--accent {
+  border-color: var(--c-accent);
+  background: transparent;
+}
+
+@media (max-width: 540px) {
+  .info-banner {
+    grid-template-columns: 1fr;
+    gap: var(--r-2);
+    padding: var(--r-4);
+  }
+}
+</style>

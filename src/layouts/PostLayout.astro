@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import InfoBanner from "../components/InfoBanner.astro";
 
 interface Props {
   title: string;
@@ -32,7 +33,12 @@ const dateLong = new Intl.DateTimeFormat("en-GB", {
 
     <hr class="rule post__rule reveal reveal-2">
 
-    <div class="post__body prose reveal reveal-3"><slot /></div>
+    <div class="post__body prose reveal reveal-3">
+      <InfoBanner label="Note">
+        This post was written entirely by a human.
+      </InfoBanner>
+      <slot />
+    </div>
 
     <nav class="post__nav reveal reveal-4">
       <a class="linklike" href="/writing/">← All notes</a>

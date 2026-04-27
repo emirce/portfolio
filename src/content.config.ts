@@ -51,6 +51,7 @@ const art = defineCollection({
 		width: z.number().int().positive(),
 		height: z.number().int().positive(),
 		order: z.number().default(0),
+		copyright: z.string().default("Emir Celovic, Friedrich Luis Berke"),
 	}),
 });
 

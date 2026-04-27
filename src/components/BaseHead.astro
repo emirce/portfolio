@@ -7,10 +7,8 @@ interface Props {
 
 const { title, description, pathname } = Astro.props;
 
-const fullTitle = title ?? "Emir Celovic — Software for the world.";
-const desc =
-  description ??
-  "Personal portfolio of Emir Celovic — software engineer building considered, calm software. Currently bullstudio.";
+const fullTitle = title ?? "Emir Celovic";
+const desc = description ?? "S";
 const canonical = new URL(pathname, Astro.site).toString();
 ---
 

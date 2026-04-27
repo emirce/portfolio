@@ -10,7 +10,8 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"format": "biome format --fix"
+		"format": "biome format --fix",
+		"lint": "biome check"
 	},
 	"dependencies": {
 		"astro": "^6.1.9"
