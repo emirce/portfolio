@@ -1,0 +1,143 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations, localizePath } from '../i18n/utils';
+import SectionHeader from './SectionHeader.astro';
+import LabelValue from './LabelValue.astro';
+
+interface Props {
+  lang: Lang;
+  number: string;
+  title: string;
+  year: number;
+  role?: string;
+  tags: string[];
+  summary: string;
+  link?: string;
+  repo?: string;
+  status: 'live' | 'archived' | 'upcoming';
+}
+
+const {
+  lang,
+  number,
+  title,
+  year,
+  role,
+  tags,
+  summary,
+  link,
+  repo,
+  status,
+} = Astro.props;
+const t = useTranslations(lang);
+const isUpcoming = status === 'upcoming';
+---
+
+<article class="proj container">
+  <SectionHeader number={number} label={t('sec.02.label')} />
+
+  <header class="proj__head reveal reveal-1">
+    <p class="proj__eyebrow">
+      <span class="proj__no">{number}</span>
+      <span class="proj__sep" aria-hidden="true">·</span>
+      <span class="proj__year">{year}</span>
+      {isUpcoming && (
+        <>
+          <span class="proj__sep" aria-hidden="true">·</span>
+          <span class="proj__upcoming">{t('work.upcoming')}</span>
+        </>
+      )}
+    </p>
+    <h1 class="proj__title">{title}</h1>
+    <p class="proj__lede">{summary}</p>
+  </header>
+
+  <hr class="rule proj__rule reveal reveal-2" />
+
+  <div class="proj__grid reveal reveal-3">
+    <dl class="proj__meta">
+      {role && <LabelValue label={t('work.role_label')} value={role} />}
+      <LabelValue label={t('work.year_label')} value={String(year)} />
+      {tags.length > 0 && (
+        <LabelValue label={t('work.tags_label')} value={tags.join(' · ')} />
+      )}
+      {link && (
+        <LabelValue label={t('work.live')}>
+          <a class="linklike" href={link} rel="noopener noreferrer" target="_blank">
+            {link.replace(/^https?:\/\//, '')}
+          </a>
+        </LabelValue>
+      )}
+      {repo && repo !== link && (
+        <LabelValue label={t('work.repo')}>
+          <a class="linklike" href={repo} rel="noopener noreferrer" target="_blank">
+            {repo.replace(/^https?:\/\//, '')}
+          </a>
+        </LabelValue>
+      )}
+    </dl>
+
+    <div class="proj__body prose">
+      <slot />
+    </div>
+  </div>
+
+  <nav class="proj__nav reveal reveal-4">
+    <a class="linklike" href={localizePath('/', lang)}>← {t('nav.back')}</a>
+  </nav>
+</article>
+
+<style>
+  .proj { padding-top: var(--r-7); }
+  .proj__head { margin-bottom: var(--r-6); }
+  .proj__eyebrow {
+    font-family: var(--f-mono);
+    font-size: var(--t-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--c-mute);
+    margin-bottom: var(--r-4);
+    display: inline-flex;
+    gap: 0.7ch;
+  }
+  .proj__no { color: var(--c-accent); }
+  .proj__sep { color: var(--c-faint); }
+  .proj__upcoming { color: var(--c-mute); }
+  .proj__title {
+    font-size: clamp(2rem, 6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: var(--tr-tighter);
+    font-variation-settings: "opsz" 64;
+    margin-bottom: var(--r-4);
+    max-width: 16ch;
+  }
+  .proj__lede {
+    color: var(--c-mute);
+    font-size: var(--t-lead);
+    max-width: 56ch;
+  }
+  .proj__rule { margin: var(--r-7) 0; }
+  .proj__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 22ch) minmax(0, 1fr);
+    gap: var(--r-8);
+    align-items: start;
+  }
+  @media (max-width: 820px) {
+    .proj__grid {
+      grid-template-columns: 1fr;
+      gap: var(--r-6);
+    }
+  }
+  .proj__meta { margin: 0; }
+  .proj__body { padding-bottom: var(--r-7); }
+  .proj__nav {
+    margin-top: var(--r-6);
+    padding-top: var(--r-5);
+    border-top: 1px solid var(--c-rule);
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-wide);
+  }
+</style>

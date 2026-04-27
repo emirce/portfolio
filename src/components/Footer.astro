@@ -1,0 +1,135 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations, localizePath, alternatePath, otherLang } from '../i18n/utils';
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+  lang: Lang;
+  pathname: string;
+}
+
+const { lang, pathname } = Astro.props;
+const t = useTranslations(lang);
+
+const normalisedPath = pathname.replace(/^\/de\/?/, '/').replace(/\/+$/, '/') || '/';
+const altPath = alternatePath(normalisedPath, lang);
+const altLang = otherLang(lang).toUpperCase();
+const colophonHref = localizePath('/writing/colophon/', lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="container">
+    <SectionHeader number="05" label={t('sec.05.label')} id="elsewhere" />
+    <dl class="foot__list">
+      <div class="foot__row">
+        <dt class="foot__label">{t('elsewhere.github')}</dt>
+        <dd class="foot__value">
+          <a class="linklike" href="https://github.com/emirce" rel="noopener noreferrer me" target="_blank">
+            github.com/emirce
+          </a>
+        </dd>
+      </div>
+      <div class="foot__row">
+        <dt class="foot__label">{t('elsewhere.x')}</dt>
+        <dd class="foot__value">
+          <a class="linklike" href="https://x.com/emirthedev" rel="noopener noreferrer me" target="_blank">
+            x.com/emirthedev
+          </a>
+        </dd>
+      </div>
+      <div class="foot__row">
+        <dt class="foot__label">{t('elsewhere.linkedin')}</dt>
+        <dd class="foot__value">
+          <a
+            class="linklike"
+            href="https://www.linkedin.com/in/emir-celovic-68316a217/"
+            rel="noopener noreferrer me"
+            target="_blank"
+          >
+            linkedin.com/in/emir-celovic
+          </a>
+        </dd>
+      </div>
+      <div class="foot__row">
+        <dt class="foot__label">{t('elsewhere.email')}</dt>
+        <dd class="foot__value foot__value--mute">
+          ——
+        </dd>
+      </div>
+    </dl>
+
+    <hr class="rule foot__rule" />
+
+    <div class="foot__bottom">
+      <span class="foot__copy">© {year} Emir Celovic · {t('foot.copy')}</span>
+      <span class="foot__meta">
+        <a class="foot__link" href={colophonHref}>{t('foot.colophon')}</a>
+        <span class="foot__sep" aria-hidden="true">·</span>
+        <a class="foot__link" href={altPath} hreflang={otherLang(lang)}>{altLang}</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    padding-top: var(--r-9);
+    padding-bottom: var(--r-7);
+    border-top: 1px solid var(--c-rule);
+    margin-top: var(--r-9);
+    background: var(--c-paper);
+  }
+  .foot__list {
+    display: grid;
+    gap: 0;
+    margin: 0;
+  }
+  .foot__row {
+    display: grid;
+    grid-template-columns: minmax(0, 14ch) minmax(0, 1fr);
+    gap: var(--r-4);
+    padding: var(--r-3) 0;
+    border-bottom: 1px dashed var(--c-rule);
+    align-items: baseline;
+  }
+  .foot__row:first-child { border-top: 1px dashed var(--c-rule); }
+  .foot__label {
+    font-family: var(--f-mono);
+    font-size: var(--t-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--c-mute);
+  }
+  .foot__value { margin: 0; }
+  .foot__value--mute { color: var(--c-faint); font-family: var(--f-mono); font-size: var(--t-label); }
+  .foot__rule { margin: var(--r-7) 0 var(--r-5); }
+  .foot__bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--r-3);
+    font-family: var(--f-mono);
+    font-size: var(--t-eyebrow);
+    color: var(--c-mute);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+  }
+  .foot__meta { display: inline-flex; gap: 0.8ch; align-items: baseline; }
+  .foot__sep { color: var(--c-faint); }
+  .foot__link {
+    color: var(--c-mute);
+    border-bottom: 1px solid transparent;
+    transition: color 220ms var(--ease-out), border-color 220ms var(--ease-out);
+  }
+  .foot__link:hover {
+    color: var(--c-accent);
+    border-bottom-color: var(--c-accent);
+  }
+  @media (max-width: 540px) {
+    .foot__row {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+interface Props {
+  label: string;
+  value?: string;
+  accent?: boolean;
+}
+
+const { label, value, accent } = Astro.props;
+---
+
+<div class={`lv${accent ? ' lv--accent' : ''}`}>
+  <dt class="lv__label">{label}</dt>
+  <dd class="lv__value">
+    {value ?? <slot />}
+  </dd>
+</div>
+
+<style>
+  .lv {
+    display: grid;
+    grid-template-columns: minmax(0, var(--label-col)) minmax(0, 1fr);
+    gap: var(--r-4);
+    align-items: baseline;
+    padding: var(--r-2) 0;
+  }
+  @media (max-width: 540px) {
+    .lv {
+      grid-template-columns: 1fr;
+      gap: 2px;
+      padding: var(--r-3) 0;
+    }
+  }
+  .lv + .lv {
+    border-top: 1px dashed var(--c-rule);
+  }
+  .lv__label {
+    font-family: var(--f-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tr-eyebrow);
+    text-transform: uppercase;
+    color: var(--c-mute);
+  }
+  .lv__value {
+    margin: 0;
+    font-size: var(--t-body);
+    color: var(--c-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .lv--accent .lv__value {
+    color: var(--c-ink);
+  }
+</style>

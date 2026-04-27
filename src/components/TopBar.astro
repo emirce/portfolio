@@ -1,0 +1,37 @@
+---
+import type { Lang } from '../i18n/utils';
+import Mark from './Mark.astro';
+import LangSwitch from './LangSwitch.astro';
+
+interface Props {
+  lang: Lang;
+  pathname: string;
+}
+
+const { lang, pathname } = Astro.props;
+---
+
+<header class="topbar">
+  <div class="container topbar__inner">
+    <Mark lang={lang} />
+    <LangSwitch lang={lang} pathname={pathname} />
+  </div>
+  <hr class="rule" />
+</header>
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--c-paper);
+    backdrop-filter: saturate(140%);
+  }
+  .topbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--r-4);
+    padding-bottom: var(--r-4);
+  }
+</style>

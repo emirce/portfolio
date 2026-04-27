@@ -1,0 +1,104 @@
+---
+import type { Lang } from '../i18n/utils';
+import { localizePath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  number: string;
+  title: string;
+  year: number;
+  tags: string[];
+  status: 'live' | 'archived' | 'upcoming';
+  slug: string;
+}
+
+const { lang, number, title, year, tags, status, slug } = Astro.props;
+const t = useTranslations(lang);
+
+const isUpcoming = status === 'upcoming';
+const href = isUpcoming ? null : localizePath(`/work/${slug}/`, lang);
+const tagText = tags.length > 0 ? tags.join(' · ') : '';
+const meta = isUpcoming ? t('work.upcoming') : `${tagText}${tagText ? ' · ' : ''}${year}`;
+---
+
+{href ? (
+  <a class="row row--link" href={href}>
+    <span class="row__no">{number}</span>
+    <span class="row__title">{title}</span>
+    <span class="row__meta">{meta}</span>
+    <span class="row__arrow" aria-hidden="true">→</span>
+  </a>
+) : (
+  <div class="row row--upcoming" aria-disabled="true">
+    <span class="row__no">{number}</span>
+    <span class="row__title">{title}</span>
+    <span class="row__meta">{meta}</span>
+    <span class="row__arrow" aria-hidden="true">·</span>
+  </div>
+)}
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: 4ch minmax(0, 1fr) auto 2ch;
+    gap: var(--r-4);
+    align-items: baseline;
+    padding: var(--r-4) 0;
+    border-bottom: 1px solid var(--c-rule);
+    color: var(--c-ink);
+    transition: padding-left 280ms var(--ease-out), color 220ms var(--ease-out);
+  }
+  .row:first-child { border-top: 1px solid var(--c-rule); }
+  .row__no {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    color: var(--c-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .row__title {
+    font-size: var(--t-h3);
+    font-weight: 540;
+    letter-spacing: var(--tr-tight);
+  }
+  .row__meta {
+    font-family: var(--f-mono);
+    font-size: var(--t-eyebrow);
+    color: var(--c-mute);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .row__arrow {
+    font-family: var(--f-mono);
+    color: var(--c-faint);
+    text-align: right;
+    transition: transform 280ms var(--ease-out), color 220ms var(--ease-out);
+  }
+  .row--link:hover {
+    padding-left: var(--r-3);
+    color: var(--c-accent);
+  }
+  .row--link:hover .row__arrow {
+    color: var(--c-accent);
+    transform: translateX(4px);
+  }
+  .row--upcoming {
+    color: var(--c-mute);
+  }
+  .row--upcoming .row__title {
+    color: var(--c-faint);
+  }
+  @media (max-width: 640px) {
+    .row {
+      grid-template-columns: 4ch minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
+      row-gap: var(--r-1);
+    }
+    .row__arrow { display: none; }
+    .row__meta {
+      grid-column: 2 / -1;
+      text-align: left;
+    }
+  }
+</style>

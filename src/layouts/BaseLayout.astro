@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+import BaseHead from '../components/BaseHead.astro';
+import TopBar from '../components/TopBar.astro';
+import Footer from '../components/Footer.astro';
+import PaperGrain from '../components/PaperGrain.astro';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+}
+
+const { lang, title, description } = Astro.props;
+const t = useTranslations(lang);
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead lang={lang} title={title} description={description} pathname={pathname} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('nav.skip')}</a>
+    <PaperGrain />
+    <TopBar lang={lang} pathname={pathname} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} pathname={pathname} />
+  </body>
+</html>

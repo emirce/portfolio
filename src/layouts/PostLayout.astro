@@ -1,0 +1,93 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import type { Lang } from '../i18n/utils';
+import { useTranslations, localizePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  date: Date;
+  summary: string;
+  number?: string;
+}
+
+const { lang, title, date, summary, number = '04' } = Astro.props;
+const t = useTranslations(lang);
+
+const dateLong = new Intl.DateTimeFormat(lang === 'de' ? 'de-DE' : 'en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(date);
+---
+
+<BaseLayout lang={lang} title={`${title} — Emir Celovic`} description={summary}>
+  <article class="post container">
+    <SectionHeader number={number} label={t('sec.04.label')} />
+
+    <header class="post__head reveal reveal-1">
+      <p class="post__eyebrow">
+        <time datetime={date.toISOString()}>{dateLong}</time>
+      </p>
+      <h1 class="post__title">{title}</h1>
+      <p class="post__lede">{summary}</p>
+    </header>
+
+    <hr class="rule post__rule reveal reveal-2" />
+
+    <div class="post__body prose reveal reveal-3">
+      <slot />
+    </div>
+
+    <nav class="post__nav reveal reveal-4">
+      <a class="linklike" href={localizePath('/writing/', lang)}>← {t('writing.see_all')}</a>
+      <a class="linklike" href={localizePath('/', lang)}>{t('nav.back')}</a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    padding-top: var(--r-7);
+  }
+  .post__head { margin-bottom: var(--r-6); }
+  .post__eyebrow {
+    font-family: var(--f-mono);
+    font-size: var(--t-eyebrow);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-eyebrow);
+    color: var(--c-mute);
+    margin-bottom: var(--r-4);
+  }
+  .post__title {
+    font-size: clamp(2rem, 5.5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tr-tighter);
+    font-variation-settings: "opsz" 48;
+    margin-bottom: var(--r-4);
+    max-width: 22ch;
+  }
+  .post__lede {
+    color: var(--c-mute);
+    font-size: var(--t-lead);
+    max-width: 56ch;
+  }
+  .post__rule {
+    margin: var(--r-7) 0 var(--r-7);
+  }
+  .post__body { padding-bottom: var(--r-8); }
+  .post__nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--r-4);
+    padding-top: var(--r-6);
+    border-top: 1px solid var(--c-rule);
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-wide);
+    color: var(--c-mute);
+  }
+</style>

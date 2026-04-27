@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import ProjectDetail from '../../../../components/ProjectDetail.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', (e) => e.data.lang === 'de' && e.data.status !== 'upcoming');
+  return projects.map((project) => ({
+    params: { slug: project.data.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout
+  lang="de"
+  title={`${project.data.title} — Emir Celovic`}
+  description={project.data.summary}
+>
+  <ProjectDetail
+    lang="de"
+    number={project.data.number}
+    title={project.data.title}
+    year={project.data.year}
+    role={project.data.role}
+    tags={project.data.tags}
+    summary={project.data.summary}
+    link={project.data.link}
+    repo={project.data.repo}
+    status={project.data.status}
+  >
+    <Content />
+  </ProjectDetail>
+</BaseLayout>

@@ -1,0 +1,180 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../i18n/utils';
+import { useTranslations, localizePath } from '../i18n/utils';
+import SectionHeader from './SectionHeader.astro';
+import LabelValue from './LabelValue.astro';
+import StatusDot from './StatusDot.astro';
+import ProjectRow from './ProjectRow.astro';
+import PostRow from './PostRow.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const allProjects = await getCollection('projects', (e) => e.data.lang === lang);
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+
+const allPosts = await getCollection('posts', (e) => e.data.lang === lang && !e.data.draft);
+const posts = allPosts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date)).slice(0, 5);
+---
+
+<div class="home container">
+  <section class="section section--hero" aria-labelledby="sec-01">
+    <div class="reveal reveal-1">
+      <SectionHeader number="01" label={t('sec.01.label')} id="sec-01" />
+    </div>
+
+    <div class="hero">
+      <h1 class="hero__title reveal reveal-2">
+        <span class="hero__line">{t('hero.line_a')}</span>
+        <span class="hero__line hero__line--soft">{t('hero.line_b')}</span>
+      </h1>
+
+      <div class="hero__meta reveal reveal-3">
+        <p class="hero__lede lead">{t('hero.lede')}</p>
+
+        <dl class="hero__rows">
+          <LabelValue label={t('index.name_label')} value={t('index.name_value')} />
+          <LabelValue label={t('index.role_label')} value={t('index.role_value')} />
+          <LabelValue label={t('index.based_label')} value={t('index.based_value')} />
+          <LabelValue label={t('index.status_label')}>
+            <span class="hero__status">
+              {t('index.status_value')}
+              <StatusDot label={t('index.status_value')} />
+            </span>
+          </LabelValue>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sec-02">
+    <div class="reveal reveal-1">
+      <SectionHeader number="02" label={t('sec.02.label')} id="sec-02" />
+    </div>
+    <div class="rows reveal reveal-2">
+      {projects.map((p) => (
+        <ProjectRow
+          lang={lang}
+          number={p.data.number}
+          title={p.data.title}
+          year={p.data.year}
+          tags={p.data.tags}
+          status={p.data.status}
+          slug={p.data.slug}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sec-03">
+    <div class="reveal reveal-1">
+      <SectionHeader number="03" label={t('sec.03.label')} id="sec-03" />
+    </div>
+    <div class="section-grid reveal reveal-2">
+      <p class="label">2026 —</p>
+      <div class="prose about-prose">
+        <p>{t('about.body_p1')}</p>
+        <p>{t('about.body_p2')}</p>
+        <p>{t('about.body_p3')}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sec-04">
+    <div class="reveal reveal-1">
+      <SectionHeader number="04" label={t('sec.04.label')} id="sec-04" />
+    </div>
+    {posts.length > 0 ? (
+      <div class="rows reveal reveal-2">
+        {posts.map((p) => (
+          <PostRow lang={lang} title={p.data.title} date={p.data.date} slug={p.data.slug} />
+        ))}
+        <div class="rows__more">
+          <a class="linklike" href={localizePath('/writing/', lang)}>{t('writing.see_all')} →</a>
+        </div>
+      </div>
+    ) : (
+      <p class="empty reveal reveal-2">{t('writing.empty')}</p>
+    )}
+  </section>
+</div>
+
+<style>
+  .home { padding-top: var(--r-7); }
+
+  .section--hero {
+    padding-top: var(--r-6);
+    padding-bottom: var(--r-7);
+  }
+
+  .hero {
+    display: grid;
+    gap: var(--r-7);
+  }
+  .hero__title {
+    font-size: var(--t-display);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-weight: 640;
+    font-variation-settings: "opsz" 144;
+    text-wrap: balance;
+    max-width: 14ch;
+  }
+  .hero__line { display: block; }
+  .hero__line--soft {
+    color: var(--c-mute);
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "ital" 1;
+  }
+  .hero__meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--r-7);
+    align-items: start;
+  }
+  @media (max-width: 820px) {
+    .hero__meta {
+      grid-template-columns: 1fr;
+      gap: var(--r-5);
+    }
+  }
+  .hero__lede {
+    font-size: var(--t-lead);
+    line-height: var(--lh-body);
+    color: var(--c-mute);
+    max-width: 38ch;
+    text-wrap: pretty;
+  }
+  .hero__rows { margin: 0; }
+  .hero__status {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4ch;
+  }
+
+  .rows { display: block; }
+  .rows__more {
+    margin-top: var(--r-5);
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    text-transform: uppercase;
+    letter-spacing: var(--tr-wide);
+    color: var(--c-mute);
+  }
+  .empty {
+    color: var(--c-mute);
+    font-size: var(--t-lead);
+    max-width: 50ch;
+    padding: var(--r-5) 0;
+    border-top: 1px dashed var(--c-rule);
+    border-bottom: 1px dashed var(--c-rule);
+  }
+  .about-prose p + p {
+    margin-top: var(--r-4);
+  }
+</style>

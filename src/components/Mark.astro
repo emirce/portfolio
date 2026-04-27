@@ -1,0 +1,48 @@
+---
+import type { Lang } from '../i18n/utils';
+import { localizePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const href = localizePath('/', lang);
+---
+
+<a href={href} class="mark" aria-label="Emir Celovic — home">
+  <span class="mark__bracket" aria-hidden="true">[</span><span class="mark__letters">EC</span><span class="mark__bracket" aria-hidden="true">]</span>
+  <span class="mark__slash" aria-hidden="true">/</span>
+</a>
+
+<style>
+  .mark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4ch;
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    font-weight: 600;
+    letter-spacing: var(--tr-wide);
+    color: var(--c-ink);
+    text-transform: uppercase;
+    transition: color 220ms var(--ease-out);
+  }
+  .mark__bracket {
+    color: var(--c-accent);
+    transition: color 220ms var(--ease-out);
+  }
+  .mark__slash {
+    color: var(--c-faint);
+    transition: transform 320ms var(--ease-out), color 220ms var(--ease-out);
+    transform-origin: center;
+    display: inline-block;
+  }
+  .mark:hover .mark__slash {
+    transform: rotate(15deg);
+    color: var(--c-accent);
+  }
+  .mark:hover .mark__bracket {
+    color: var(--c-accent-deep);
+  }
+</style>
