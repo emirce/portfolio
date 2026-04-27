@@ -17,19 +17,8 @@ export const ui = {
   'sec.04.label': 'Writing',
   'sec.05.label': 'Elsewhere',
 
-  'hero.line_a': 'Software',
-  'hero.line_b': 'for the world.',
-  'hero.lede':
-    'I build calm, considered software. Currently shaping bullstudio — a contemporary interface for Bull and BullMQ job queues.',
-
-  'index.name_label': 'Name',
-  'index.role_label': 'Role',
-  'index.based_label': 'Based',
-  'index.status_label': 'Status',
-  'index.name_value': 'Emir Celovic',
-  'index.role_value': 'Software engineer',
-  'index.based_value': 'Europe — remote',
-  'index.status_value': 'Available for select work',
+  'hero.intro':
+    'Hi — I’m Emir. A short, personal introduction will live here: a sentence or two on what I build, what I care about, and what I’m focused on right now. Placeholder copy until the real words land.',
 
   'work.year_label': 'Year',
   'work.tags_label': 'Tags',

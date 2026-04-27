@@ -2,8 +2,6 @@
 import { getCollection } from 'astro:content';
 import { t } from '../i18n/utils';
 import SectionHeader from './SectionHeader.astro';
-import LabelValue from './LabelValue.astro';
-import StatusDot from './StatusDot.astro';
 import ProjectRow from './ProjectRow.astro';
 import PostRow from './PostRow.astro';
 
@@ -21,26 +19,45 @@ const posts = allPosts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.
     </div>
 
     <div class="hero">
-      <h1 class="hero__title reveal reveal-2">
-        <span class="hero__line">{t('hero.line_a')}</span>
-        <span class="hero__line hero__line--soft">{t('hero.line_b')}</span>
-      </h1>
+      <p class="hero__intro reveal reveal-2">{t('hero.intro')}</p>
 
-      <div class="hero__meta reveal reveal-3">
-        <p class="hero__lede lead">{t('hero.lede')}</p>
-
-        <dl class="hero__rows">
-          <LabelValue label={t('index.name_label')} value={t('index.name_value')} />
-          <LabelValue label={t('index.role_label')} value={t('index.role_value')} />
-          <LabelValue label={t('index.based_label')} value={t('index.based_value')} />
-          <LabelValue label={t('index.status_label')}>
-            <span class="hero__status">
-              {t('index.status_value')}
-              <StatusDot label={t('index.status_value')} />
-            </span>
-          </LabelValue>
-        </dl>
-      </div>
+      <dl class="hero__contacts reveal reveal-3">
+        <div class="hero__contact">
+          <dt class="hero__contact-label">{t('elsewhere.linkedin')}</dt>
+          <dd class="hero__contact-value">
+            <a
+              class="linklike"
+              href="https://www.linkedin.com/in/emir-celovic-68316a217/"
+              rel="noopener noreferrer me"
+              target="_blank"
+            >
+              linkedin.com/in/emir-celovic
+            </a>
+          </dd>
+        </div>
+        <div class="hero__contact">
+          <dt class="hero__contact-label">{t('elsewhere.x')}</dt>
+          <dd class="hero__contact-value">
+            <a class="linklike" href="https://x.com/emirthedev" rel="noopener noreferrer me" target="_blank">
+              x.com/emirthedev
+            </a>
+          </dd>
+        </div>
+        <div class="hero__contact">
+          <dt class="hero__contact-label">{t('elsewhere.github')}</dt>
+          <dd class="hero__contact-value">
+            <a class="linklike" href="https://github.com/emirce" rel="noopener noreferrer me" target="_blank">
+              github.com/emirce
+            </a>
+          </dd>
+        </div>
+        <div class="hero__contact">
+          <dt class="hero__contact-label">{t('elsewhere.email')}</dt>
+          <dd class="hero__contact-value">
+            <a class="linklike" href="mailto:emir@celovic.com">emir@celovic.com</a>
+          </dd>
+        </div>
+      </dl>
     </div>
   </section>
 
@@ -107,45 +124,47 @@ const posts = allPosts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.
     display: grid;
     gap: var(--r-7);
   }
-  .hero__title {
-    font-size: var(--t-display);
-    line-height: 0.95;
-    letter-spacing: -0.035em;
-    font-weight: 640;
-    font-variation-settings: "opsz" 144;
-    text-wrap: balance;
-    max-width: 14ch;
-  }
-  .hero__line { display: block; }
-  .hero__line--soft {
-    color: var(--c-mute);
-    font-style: italic;
-    font-variation-settings: "opsz" 144, "ital" 1;
-  }
-  .hero__meta {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-    gap: var(--r-7);
-    align-items: start;
-  }
-  @media (max-width: 820px) {
-    .hero__meta {
-      grid-template-columns: 1fr;
-      gap: var(--r-5);
-    }
-  }
-  .hero__lede {
+  .hero__intro {
     font-size: var(--t-lead);
     line-height: var(--lh-body);
-    color: var(--c-mute);
-    max-width: 38ch;
+    color: var(--c-ink);
+    max-width: 52ch;
     text-wrap: pretty;
+    margin: 0;
   }
-  .hero__rows { margin: 0; }
-  .hero__status {
-    display: inline-flex;
+  .hero__contacts {
+    margin: 0;
+    display: grid;
+    gap: 0;
+    max-width: 56ch;
+  }
+  .hero__contact {
+    display: grid;
+    grid-template-columns: minmax(0, 14ch) minmax(0, 1fr);
+    gap: var(--r-4);
+    padding: var(--r-2) 0;
     align-items: baseline;
-    gap: 0.4ch;
+  }
+  .hero__contact-label {
+    font-family: var(--f-mono);
+    font-size: var(--t-eyebrow);
+    font-weight: 500;
+    letter-spacing: var(--tr-eyebrow);
+    text-transform: uppercase;
+    color: var(--c-mute);
+  }
+  .hero__contact-value {
+    margin: 0;
+    font-size: var(--t-body);
+    color: var(--c-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 540px) {
+    .hero__contact {
+      grid-template-columns: 1fr;
+      gap: 2px;
+      padding: var(--r-3) 0;
+    }
   }
 
   .rows { display: block; }
@@ -161,9 +180,7 @@ const posts = allPosts.sort((a, b) => +new Date(b.data.date) - +new Date(a.data.
     color: var(--c-mute);
     font-size: var(--t-lead);
     max-width: 50ch;
-    padding: var(--r-5) 0;
-    border-top: 1px dashed var(--c-rule);
-    border-bottom: 1px dashed var(--c-rule);
+    padding: var(--r-3) 0;
   }
   .about-prose p + p {
     margin-top: var(--r-4);
