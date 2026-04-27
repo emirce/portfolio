@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from "astro:content";
+import SectionHeader from "./SectionHeader.astro";
+import ArtPiece from "./ArtPiece.astro";
+
+const all = await getCollection("art");
+const pieces = all.sort((a, b) => a.data.order - b.data.order);
+
+const rendered = await Promise.all(
+  pieces.map(async (p) => {
+    const { Content } = await render(p);
+    return { data: p.data, Content };
+  }),
+);
+---
+
+<div class="aindex container">
+  <SectionHeader number="05" label="Art" />
+
+  <header class="aindex__head reveal reveal-1">
+    <h1 class="aindex__title">Art</h1>
+    <p class="lead">
+      {pieces.length > 0
+        ? "Maps and cartographic art. Mostly work done for Cartographr Co."
+        : "Pieces in progress. The first will arrive here when it is ready."}
+    </p>
+  </header>
+
+  {pieces.length > 0 && (
+    <div class="aindex__list reveal reveal-2">
+      {rendered.map(({ data, Content }, i) => (
+        <ArtPiece
+          number={data.number}
+          title={data.title}
+          year={data.year}
+          medium={data.medium}
+          imageKey={data.key}
+          alt={data.alt}
+          width={data.width}
+          height={data.height}
+          eager={i === 0}
+        >
+          <Content />
+        </ArtPiece>
+      ))}
+    </div>
+  )}
+
+  <nav class="aindex__nav reveal reveal-3">
+    <a class="linklike" href="/">← Back to index</a>
+  </nav>
+</div>
+
+<style>
+.aindex {
+  padding-top: var(--r-7);
+}
+.aindex__head {
+  margin-bottom: var(--r-8);
+}
+.aindex__title {
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: var(--tr-tighter);
+  font-variation-settings: "opsz" 48;
+  margin-bottom: var(--r-4);
+}
+.aindex__list {
+  display: block;
+}
+.aindex__nav {
+  margin-top: var(--r-7);
+  padding-top: var(--r-5);
+  border-top: 1px solid var(--c-rule);
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-wide);
+}
+</style>

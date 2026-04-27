@@ -4,6 +4,8 @@ import SectionHeader from "./SectionHeader.astro";
 import ProjectRow from "./ProjectRow.astro";
 import PostRow from "./PostRow.astro";
 
+const R2_ART_BASE = "https://assets.celovic.com/art/";
+
 const allProjects = await getCollection("projects");
 const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
@@ -11,6 +13,11 @@ const allPosts = await getCollection("posts", (e) => !e.data.draft);
 const posts = allPosts
   .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date))
   .slice(0, 5);
+
+const allArt = await getCollection("art");
+const artPreview = allArt
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
 ---
 
 <div class="home container">
@@ -155,6 +162,42 @@ const posts = allPosts
       </p>
     )}
   </section>
+
+  <section class="section" aria-labelledby="sec-05">
+    <div class="reveal reveal-1">
+      <SectionHeader number="05" label="Art" id="sec-05" />
+    </div>
+    {artPreview.length > 0 ? (
+      <div class="art-strip reveal reveal-2">
+        <p class="art-strip__lead">
+          Maps and cartographic studies, mostly drawn by hand.
+        </p>
+        <ul class="art-strip__grid">
+          {artPreview.map((p) => (
+            <li class="art-strip__item">
+              <a class="art-strip__link" href="/art/" aria-label={`View ${p.data.title}`}>
+                <img
+                  src={`${R2_ART_BASE}${p.data.key}`}
+                  alt=""
+                  width={p.data.width}
+                  height={p.data.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="rows__more">
+          <a class="linklike" href="/art/">All pieces →</a>
+        </div>
+      </div>
+    ) : (
+      <p class="empty reveal reveal-2">
+        Pieces in progress. The first will arrive here when it is ready.
+      </p>
+    )}
+  </section>
 </div>
 
 <style>
@@ -263,5 +306,53 @@ const posts = allPosts
 }
 .about-prose p + p {
   margin-top: var(--r-4);
+}
+
+.art-strip__lead {
+  color: var(--c-mute);
+  font-size: var(--t-lead);
+  max-width: 50ch;
+  margin: 0 0 var(--r-5);
+}
+.art-strip__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--r-4);
+}
+.art-strip__item {
+  margin: 0;
+}
+.art-strip__link {
+  display: block;
+  background: var(--c-paper-deep);
+  border: 1px solid var(--c-rule);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  transition: border-color 220ms var(--ease-out);
+}
+.art-strip__link:hover {
+  border-color: var(--c-rule-hard);
+}
+.art-strip__link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  transition: transform 600ms var(--ease-out);
+}
+.art-strip__link:hover img {
+  transform: scale(1.02);
+}
+@media (max-width: 540px) {
+  .art-strip__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .art-strip__item:nth-child(3) {
+    display: none;
+  }
 }
 </style>

@@ -1,0 +1,119 @@
+---
+const R2_ART_BASE = "https://assets.celovic.com/art/";
+
+interface Props {
+  number: string;
+  title: string;
+  year: number;
+  medium?: string;
+  imageKey: string;
+  alt: string;
+  width: number;
+  height: number;
+  eager?: boolean;
+}
+
+const { number, title, year, medium, imageKey, alt, width, height, eager } =
+  Astro.props;
+const src = `${R2_ART_BASE}${imageKey}`;
+
+const noteHtml = Astro.slots.has("default")
+  ? await Astro.slots.render("default")
+  : "";
+const hasNote = noteHtml.replace(/<[^>]*>/g, "").trim().length > 0;
+---
+
+<figure class="piece">
+  <div class="piece__media">
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+    >
+  </div>
+  <figcaption class="piece__cap">
+    <p class="piece__heading">
+      <span class="piece__no">{number}</span>
+      <span class="piece__dash" aria-hidden="true">——</span>
+      <span class="piece__title">{title}</span>
+    </p>
+    <p class="piece__meta">
+      <span class="piece__year">{year}</span>
+      {medium && (
+        <>
+          <span class="piece__sep" aria-hidden="true">·</span>
+          <span class="piece__medium">{medium}</span>
+        </>
+      )}
+    </p>
+    {hasNote && <div class="piece__note prose"><slot /></div>}
+  </figcaption>
+</figure>
+
+<style>
+.piece {
+  margin: 0;
+  padding-bottom: var(--r-9);
+}
+.piece + .piece {
+  padding-top: var(--r-2);
+}
+.piece__media {
+  width: 100%;
+  background: var(--c-paper-deep);
+  border: 1px solid var(--c-rule);
+}
+.piece__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+.piece__cap {
+  margin-top: var(--r-4);
+  display: grid;
+  gap: var(--r-2);
+  max-width: 64ch;
+}
+.piece__heading {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: var(--t-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-eyebrow);
+  display: inline-flex;
+  gap: 0.7ch;
+  align-items: baseline;
+}
+.piece__no {
+  color: var(--c-accent);
+}
+.piece__dash {
+  color: var(--c-faint);
+  letter-spacing: 0;
+}
+.piece__title {
+  color: var(--c-ink);
+}
+.piece__meta {
+  margin: 0;
+  color: var(--c-mute);
+  font-size: var(--t-small);
+  display: inline-flex;
+  gap: 0.7ch;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+.piece__sep {
+  color: var(--c-faint);
+}
+.piece__note {
+  margin-top: var(--r-3);
+  color: var(--c-mute);
+  font-size: var(--t-body);
+  line-height: var(--lh-prose);
+}
+</style>
