@@ -22,17 +22,18 @@
 }
 
 @theme {
-	--color-paper: #f4f1ea;
-	--color-paper-deep: #ece8de;
-	--color-ink: #111111;
-	--color-mute: rgb(17 17 17 / 60%);
-	--color-faint: rgb(17 17 17 / 32%);
-	--color-rule: rgb(17 17 17 / 12%);
-	--color-rule-hard: rgb(17 17 17 / 22%);
-	--color-accent: #c24a1f;
-	--color-accent-deep: #9c3a14;
-	--color-code-string: #5e6d2c;
-	--color-code-num: #8a4f1a;
+	--color-paper: oklch(95.8% 0.017 82);
+	--color-paper-deep: oklch(91.8% 0.022 82);
+	--color-paper-warm: oklch(97.2% 0.014 86);
+	--color-ink: oklch(18.5% 0.009 64);
+	--color-mute: oklch(18.5% 0.009 64 / 62%);
+	--color-faint: oklch(18.5% 0.009 64 / 34%);
+	--color-rule: oklch(18.5% 0.009 64 / 13%);
+	--color-rule-hard: oklch(18.5% 0.009 64 / 24%);
+	--color-accent: oklch(55% 0.145 39);
+	--color-accent-deep: oklch(43% 0.13 39);
+	--color-code-string: oklch(43% 0.076 119);
+	--color-code-num: oklch(47% 0.105 56);
 
 	--font-sans:
 		"Mona Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -43,12 +44,12 @@
 	--text-label: 0.8125rem;
 	--text-small: 0.875rem;
 	--text-body: 1rem;
-	--text-lead: 1.0625rem;
+	--text-lead: clamp(1.0625rem, 1.3vw, 1.25rem);
 	--text-quote: 1.25rem;
 	--text-h3: 1.375rem;
 	--text-h2: clamp(1.625rem, 3vw, 2.125rem);
 	--text-h1: clamp(2.625rem, 8vw, 5.5rem);
-	--text-display: clamp(3rem, 11vw, 7rem);
+	--text-display: clamp(4.25rem, 16vw, 12rem);
 
 	--tracking-tight: -0.015em;
 	--tracking-tighter: -0.025em;
@@ -117,7 +118,11 @@
 		min-height: 100vh;
 		position: relative;
 		overflow-x: hidden;
-		background: var(--color-paper);
+		background: linear-gradient(
+			180deg,
+			var(--color-paper-warm),
+			var(--color-paper) 38rem
+		);
 		color: var(--color-ink);
 		font-family: var(--font-sans);
 		font-size: var(--text-body);
@@ -302,8 +307,7 @@
 		background: var(--color-paper-deep);
 		color: var(--color-ink);
 		padding: var(--spacing-r-4) var(--spacing-r-5);
-		border: 1px solid var(--color-rule);
-		border-left: 2px solid var(--color-accent);
+		border: 1px solid var(--color-rule-hard);
 		overflow-x: auto;
 		line-height: 1.7;
 		tab-size: 2;
@@ -366,7 +370,7 @@
 	}
 
 	& ul li::before {
-		content: "—";
+		content: "/";
 		display: inline-block;
 		width: 1em;
 		margin-left: -1em;

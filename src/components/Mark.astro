@@ -1,23 +1,20 @@
 ---
+const pathLabel =
+  Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <a
   href="/"
-  class="group inline-flex items-baseline gap-[0.4ch] font-mono text-label font-semibold tracking-wide text-ink uppercase transition-colors duration-[220ms] ease-out"
-  aria-label="Emir Celovic — home"
+  class="group inline-flex items-center gap-[0.7ch] font-mono text-label font-semibold tracking-wide text-ink transition-colors duration-[220ms] ease-out"
+  aria-label="Home"
 >
   <img
     src="/img/bear_drawing.webp"
     alt=""
-    class="block h-[1.6em] w-auto self-center"
+    class="block h-[1.7em] w-auto"
     width="24"
     height="24"
     decoding="async"
   >
-  <span
-    class="inline-block origin-center text-faint transition-[transform,color] duration-[320ms,220ms] ease-out group-hover:rotate-[15deg] group-hover:text-accent"
-    aria-hidden="true"
-  >
-    /
-  </span>
+  <span>{pathLabel}</span>
 </a>

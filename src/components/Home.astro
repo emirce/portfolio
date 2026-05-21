@@ -49,28 +49,22 @@ const artPreview = allArt
 ---
 
 <div class="container pt-r-7">
-  <section class="section pt-r-6 pb-r-7" aria-labelledby="sec-01">
-    <div class="reveal reveal-1">
-      <SectionHeader number="01" label="Index" id="sec-01" />
-    </div>
-
+  <section class="section pt-r-5 pb-r-8">
     <div
-      class="grid grid-cols-1 items-center gap-r-6 min-[860px]:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] min-[860px]:gap-r-8"
+      class="grid grid-cols-1 items-end gap-r-7 min-[860px]:grid-cols-[minmax(0,1fr)_minmax(220px,0.72fr)] min-[860px]:gap-r-8"
     >
-      <div class="order-2 grid min-w-0 gap-r-7 min-[860px]:order-none">
-        <p
-          class="m-0 max-w-[52ch] text-lead leading-body text-ink reveal reveal-2"
+      <div class="order-2 grid min-w-0 gap-r-6 min-[860px]:order-none">
+        <h1
+          class="max-w-[8ch] text-display leading-[0.83] tracking-tighter reveal reveal-2"
         >
-          Hi, I'm Emir. Software developer and mechanical engineer. I build
-          stuff for the web and ecommerce.
-        </p>
-        <p
-          class="m-0 max-w-[52ch] text-lead leading-body text-ink reveal reveal-2"
-        >
-          Currently building <i>Kord</i>.
+          Emir Celovic
+        </h1>
+
+        <p class="m-0 text-lead leading-body text-mute reveal reveal-3">
+          Currently building <i class="text-ink">Kord</i>.
         </p>
 
-        <div class="reveal reveal-3"><ContactList items={heroContacts} /></div>
+        <div class="reveal reveal-4"><ContactList items={heroContacts} /></div>
       </div>
 
       <figure
@@ -80,7 +74,7 @@ const artPreview = allArt
         <img
           src="/img/bear_drawing.webp"
           alt=""
-          class="block h-auto w-full max-w-[100px] mix-blend-multiply min-[860px]:max-w-[460px]"
+          class="block h-auto w-full max-w-[132px] rotate-[-2deg] mix-blend-multiply opacity-95 min-[860px]:max-w-[420px]"
           width="512"
           height="512"
           loading="eager"
@@ -134,21 +128,20 @@ const artPreview = allArt
     </div>
     {artPreview.length > 0 ? (
       <div class="reveal reveal-2">
-        <p class="m-0 mb-r-5 max-w-[50ch] text-lead text-mute">
-          Maps and cartographic art. Mostly work done for Cartographr Co.
-        </p>
-        <ul class="m-0 grid list-none grid-cols-3 gap-r-4 p-0 max-[540px]:grid-cols-2">
+        <ul
+          class="m-0 grid list-none grid-cols-3 gap-r-4 p-0 max-[540px]:grid-cols-2 min-[860px]:gap-r-5"
+        >
           {artPreview.map((p) => (
             <li class="m-0 max-[540px]:nth-[3]:hidden">
               <a
-                class="group block aspect-[4/3] overflow-hidden border border-rule bg-paper-deep transition-colors duration-[220ms] ease-out hover:border-rule-hard"
+                class="group block aspect-[4/3] overflow-hidden border border-rule bg-paper-deep shadow-[0_1px_0_var(--color-paper-warm)_inset] transition-[border-color,transform] duration-[220ms,500ms] ease-out hover:-translate-y-1 hover:border-rule-hard"
                 href="/art/"
                 aria-label={`View ${p.data.title}`}
               >
                 <img
                   src={`${R2_ART_BASE}${p.data.key}`}
                   alt=""
-                  class="block size-full scale-125 object-cover mix-blend-multiply transition-transform duration-[600ms] ease-out group-hover:scale-100"
+                  class="block size-full scale-125 object-cover mix-blend-multiply transition-transform duration-[700ms] ease-out group-hover:scale-[1.03]"
                   width={p.data.width}
                   height={p.data.height}
                   loading="lazy"

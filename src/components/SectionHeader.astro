@@ -1,19 +1,16 @@
 ---
 interface Props {
-  number: string;
   label: string;
   id?: string;
+  number?: string;
 }
 
-const { number, label, id } = Astro.props;
+const { label, id } = Astro.props;
 ---
 
 <header
-  class="mb-r-6 inline-flex items-baseline gap-[0.6ch] font-mono text-eyebrow font-semibold tracking-eyebrow text-ink uppercase"
+  class="mb-r-6 inline-flex items-baseline font-mono text-eyebrow font-semibold tracking-eyebrow text-ink uppercase"
   id={id}
 >
-  <span class="font-semibold text-accent" aria-hidden="true">§</span>
-  <span class="text-mute">{number}</span>
-  <span class="tracking-normal text-faint" aria-hidden="true">——</span>
   <span class="text-ink">{label}</span>
 </header>

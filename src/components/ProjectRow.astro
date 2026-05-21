@@ -1,14 +1,14 @@
 ---
 interface Props {
-  number: string;
   title: string;
   year: number;
   tags: string[];
   status: "live" | "archived" | "upcoming";
   slug: string;
+  number?: string;
 }
 
-const { number, title, year, tags, status, slug } = Astro.props;
+const { title, year, tags, status, slug } = Astro.props;
 
 const isUpcoming = status === "upcoming";
 const href = isUpcoming ? null : `/work/${slug}/`;
@@ -20,13 +20,12 @@ const meta = isUpcoming
 
 {href ? (
   <a
-    class="group grid grid-cols-[4ch_minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b py-r-4 text-ink transition-[padding-left,color] duration-[280ms,220ms] ease-out first:border-t hover:pl-r-3 hover:text-accent max-[640px]:grid-cols-[4ch_minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
+    class="group grid grid-cols-[minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b px-r-3 py-r-4 text-ink transition-[background-color,color,transform,border-color] duration-[280ms,220ms,360ms,220ms] ease-out first:border-t hover:-translate-y-px hover:border-rule-hard hover:bg-paper-warm hover:text-accent max-[640px]:grid-cols-[minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
     href={href}
   >
-    <span class="font-mono text-label text-faint numerals">{number}</span>
     <span class="text-h3 font-[540] tracking-tight">{title}</span>
     <span
-      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-2 max-[640px]:col-end-[-1] max-[640px]:text-left"
+      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-1 max-[640px]:col-end-[-1] max-[640px]:text-left"
     >
       {meta}
     </span>
@@ -39,13 +38,12 @@ const meta = isUpcoming
   </a>
 ) : (
   <div
-    class="grid grid-cols-[4ch_minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b py-r-4 text-mute transition-[padding-left,color] duration-[280ms,220ms] ease-out first:border-t max-[640px]:grid-cols-[4ch_minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
+    class="grid grid-cols-[minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b px-r-3 py-r-4 text-mute transition-colors duration-[220ms] ease-out first:border-t max-[640px]:grid-cols-[minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
     aria-disabled="true"
   >
-    <span class="font-mono text-label text-faint numerals">{number}</span>
     <span class="text-h3 font-[540] tracking-tight text-faint">{title}</span>
     <span
-      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-2 max-[640px]:col-end-[-1] max-[640px]:text-left"
+      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-1 max-[640px]:col-end-[-1] max-[640px]:text-left"
     >
       {meta}
     </span>
