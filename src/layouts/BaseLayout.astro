@@ -20,7 +20,12 @@ const pathname = Astro.url.pathname;
     <BaseHead title={title} description={description} pathname={pathname} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a
+      class="absolute top-0 left-0 z-[100] -translate-y-[120%] bg-ink px-r-4 py-r-3 font-mono text-label tracking-wide text-paper uppercase transition-transform duration-200 ease-out focus-visible:translate-y-0"
+      href="#main"
+    >
+      Skip to content
+    </a>
     <PaperGrain />
     <TopBar />
     <main id="main"><slot /></main>

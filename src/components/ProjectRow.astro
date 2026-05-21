@@ -19,91 +19,36 @@ const meta = isUpcoming
 ---
 
 {href ? (
-  <a class="row row--link" href={href}>
-    <span class="row__no">{number}</span>
-    <span class="row__title">{title}</span>
-    <span class="row__meta">{meta}</span>
-    <span class="row__arrow" aria-hidden="true">→</span>
+  <a
+    class="group grid grid-cols-[4ch_minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b py-r-4 text-ink transition-[padding-left,color] duration-[280ms,220ms] ease-out first:border-t hover:pl-r-3 hover:text-accent max-[640px]:grid-cols-[4ch_minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
+    href={href}
+  >
+    <span class="font-mono text-label text-faint numerals">{number}</span>
+    <span class="text-h3 font-[540] tracking-tight">{title}</span>
+    <span
+      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-2 max-[640px]:col-end-[-1] max-[640px]:text-left"
+    >
+      {meta}
+    </span>
+    <span
+      class="text-right font-mono text-faint transition-[transform,color] duration-[280ms,220ms] ease-out group-hover:translate-x-1 group-hover:text-accent max-[640px]:hidden"
+      aria-hidden="true"
+    >
+      →
+    </span>
   </a>
 ) : (
-  <div class="row row--upcoming" aria-disabled="true">
-    <span class="row__no">{number}</span>
-    <span class="row__title">{title}</span>
-    <span class="row__meta">{meta}</span>
-    <span class="row__arrow" aria-hidden="true">·</span>
+  <div
+    class="grid grid-cols-[4ch_minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b py-r-4 text-mute transition-[padding-left,color] duration-[280ms,220ms] ease-out first:border-t max-[640px]:grid-cols-[4ch_minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
+    aria-disabled="true"
+  >
+    <span class="font-mono text-label text-faint numerals">{number}</span>
+    <span class="text-h3 font-[540] tracking-tight text-faint">{title}</span>
+    <span
+      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-2 max-[640px]:col-end-[-1] max-[640px]:text-left"
+    >
+      {meta}
+    </span>
+    <span class="text-right font-mono text-faint max-[640px]:hidden" aria-hidden="true">·</span>
   </div>
 )}
-
-<style>
-.row {
-  display: grid;
-  grid-template-columns: 4ch minmax(0, 1fr) auto 2ch;
-  gap: var(--r-4);
-  align-items: baseline;
-  padding: var(--r-4) 0;
-  border-bottom: 1px solid var(--c-rule);
-  color: var(--c-ink);
-  transition:
-    padding-left 280ms var(--ease-out),
-    color 220ms var(--ease-out);
-}
-.row:first-child {
-  border-top: 1px solid var(--c-rule);
-}
-.row__no {
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  color: var(--c-faint);
-  font-variant-numeric: tabular-nums;
-}
-.row__title {
-  font-size: var(--t-h3);
-  font-weight: 540;
-  letter-spacing: var(--tr-tight);
-}
-.row__meta {
-  font-family: var(--f-mono);
-  font-size: var(--t-eyebrow);
-  color: var(--c-mute);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-eyebrow);
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-.row__arrow {
-  font-family: var(--f-mono);
-  color: var(--c-faint);
-  text-align: right;
-  transition:
-    transform 280ms var(--ease-out),
-    color 220ms var(--ease-out);
-}
-.row--link:hover {
-  padding-left: var(--r-3);
-  color: var(--c-accent);
-}
-.row--link:hover .row__arrow {
-  color: var(--c-accent);
-  transform: translateX(4px);
-}
-.row--upcoming {
-  color: var(--c-mute);
-}
-.row--upcoming .row__title {
-  color: var(--c-faint);
-}
-@media (max-width: 640px) {
-  .row {
-    grid-template-columns: 4ch minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
-    row-gap: var(--r-1);
-  }
-  .row__arrow {
-    display: none;
-  }
-  .row__meta {
-    grid-column: 2 / -1;
-    text-align: left;
-  }
-}
-</style>

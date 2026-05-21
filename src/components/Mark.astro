@@ -1,54 +1,23 @@
 ---
 ---
 
-<a href="/" class="mark" aria-label="Emir Celovic — home">
+<a
+  href="/"
+  class="group inline-flex items-baseline gap-[0.4ch] font-mono text-label font-semibold tracking-wide text-ink uppercase transition-colors duration-[220ms] ease-out"
+  aria-label="Emir Celovic — home"
+>
   <img
     src="/img/bear_drawing.webp"
     alt=""
-    class="mark__logo"
+    class="block h-[1.6em] w-auto self-center"
     width="24"
     height="24"
     decoding="async"
   >
-  <span class="mark__slash" aria-hidden="true">/</span>
+  <span
+    class="inline-block origin-center text-faint transition-[transform,color] duration-[320ms,220ms] ease-out group-hover:rotate-[15deg] group-hover:text-accent"
+    aria-hidden="true"
+  >
+    /
+  </span>
 </a>
-
-<style>
-.mark {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4ch;
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  font-weight: 600;
-  letter-spacing: var(--tr-wide);
-  color: var(--c-ink);
-  text-transform: uppercase;
-  transition: color 220ms var(--ease-out);
-}
-.mark__bracket {
-  color: var(--c-accent);
-  transition: color 220ms var(--ease-out);
-}
-.mark__logo {
-  height: 1.6em;
-  width: auto;
-  display: block;
-  align-self: center;
-}
-.mark__slash {
-  color: var(--c-faint);
-  transition:
-    transform 320ms var(--ease-out),
-    color 220ms var(--ease-out);
-  transform-origin: center;
-  display: inline-block;
-}
-.mark:hover .mark__slash {
-  transform: rotate(15deg);
-  color: var(--c-accent);
-}
-.mark:hover .mark__bracket {
-  color: var(--c-accent-deep);
-}
-</style>

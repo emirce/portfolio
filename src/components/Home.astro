@@ -48,29 +48,39 @@ const artPreview = allArt
   .slice(0, 3);
 ---
 
-<div class="home container">
-  <section class="section section--hero" aria-labelledby="sec-01">
+<div class="container pt-r-7">
+  <section class="section pt-r-6 pb-r-7" aria-labelledby="sec-01">
     <div class="reveal reveal-1">
       <SectionHeader number="01" label="Index" id="sec-01" />
     </div>
 
-    <div class="hero">
-      <div class="hero__main">
-        <p class="hero__intro reveal reveal-2">
+    <div
+      class="grid grid-cols-1 items-center gap-r-6 min-[860px]:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] min-[860px]:gap-r-8"
+    >
+      <div class="order-2 grid min-w-0 gap-r-7 min-[860px]:order-none">
+        <p
+          class="m-0 max-w-[52ch] text-lead leading-body text-ink reveal reveal-2"
+        >
           Hi, I'm Emir. Software developer and mechanical engineer. I build
           stuff for the web and ecommerce.
         </p>
-        <p class="hero__intro reveal reveal-2">
+        <p
+          class="m-0 max-w-[52ch] text-lead leading-body text-ink reveal reveal-2"
+        >
           Currently building <i>Kord</i>.
         </p>
 
         <div class="reveal reveal-3"><ContactList items={heroContacts} /></div>
       </div>
 
-      <figure class="hero__media reveal reveal-3" aria-hidden="true">
+      <figure
+        class="order-1 m-0 flex min-w-0 items-center justify-start min-[860px]:order-none min-[860px]:justify-end reveal reveal-3"
+        aria-hidden="true"
+      >
         <img
           src="/img/bear_drawing.webp"
           alt=""
+          class="block h-auto w-full max-w-[100px] mix-blend-multiply min-[860px]:max-w-[460px]"
           width="512"
           height="512"
           loading="eager"
@@ -84,7 +94,7 @@ const artPreview = allArt
     <div class="reveal reveal-1">
       <SectionHeader number="02" label="Selected Work" id="sec-02" />
     </div>
-    <div class="rows reveal reveal-2">
+    <div class="block reveal reveal-2">
       {projects.map((p) => (
         <ProjectRow
           number={p.data.number}
@@ -103,16 +113,16 @@ const artPreview = allArt
       <SectionHeader number="03" label="Writing" id="sec-03" />
     </div>
     {posts.length > 0 ? (
-      <div class="rows reveal reveal-2">
+      <div class="block reveal reveal-2">
         {posts.map((p) => (
           <PostRow title={p.data.title} date={p.data.date} slug={p.data.slug} />
         ))}
-        <div class="rows__more">
+        <div class="mt-r-5 font-mono text-label tracking-wide text-mute uppercase">
           <a class="linklike" href="/writing/">All notes →</a>
         </div>
       </div>
     ) : (
-      <p class="empty reveal reveal-2">
+      <p class="max-w-[50ch] py-r-3 text-lead text-mute reveal reveal-2">
         Notes in progress. The first piece will arrive here when it is ready.
       </p>
     )}
@@ -123,17 +133,22 @@ const artPreview = allArt
       <SectionHeader number="04" label="Art" id="sec-04" />
     </div>
     {artPreview.length > 0 ? (
-      <div class="art-strip reveal reveal-2">
-        <p class="art-strip__lead">
+      <div class="reveal reveal-2">
+        <p class="m-0 mb-r-5 max-w-[50ch] text-lead text-mute">
           Maps and cartographic art. Mostly work done for Cartographr Co.
         </p>
-        <ul class="art-strip__grid">
+        <ul class="m-0 grid list-none grid-cols-3 gap-r-4 p-0 max-[540px]:grid-cols-2">
           {artPreview.map((p) => (
-            <li class="art-strip__item">
-              <a class="art-strip__link" href="/art/" aria-label={`View ${p.data.title}`}>
+            <li class="m-0 max-[540px]:nth-[3]:hidden">
+              <a
+                class="group block aspect-[4/3] overflow-hidden border border-rule bg-paper-deep transition-colors duration-[220ms] ease-out hover:border-rule-hard"
+                href="/art/"
+                aria-label={`View ${p.data.title}`}
+              >
                 <img
                   src={`${R2_ART_BASE}${p.data.key}`}
                   alt=""
+                  class="block size-full scale-125 object-cover mix-blend-multiply transition-transform duration-[600ms] ease-out group-hover:scale-100"
                   width={p.data.width}
                   height={p.data.height}
                   loading="lazy"
@@ -143,143 +158,14 @@ const artPreview = allArt
             </li>
           ))}
         </ul>
-        <div class="rows__more">
+        <div class="mt-r-5 font-mono text-label tracking-wide text-mute uppercase">
           <a class="linklike" href="/art/">All pieces →</a>
         </div>
       </div>
     ) : (
-      <p class="empty reveal reveal-2">
+      <p class="max-w-[50ch] py-r-3 text-lead text-mute reveal reveal-2">
         Pieces in progress. The first will arrive here when it is ready.
       </p>
     )}
   </section>
 </div>
-
-<style>
-.home {
-  padding-top: var(--r-7);
-}
-
-.section--hero {
-  padding-top: var(--r-6);
-  padding-bottom: var(--r-7);
-}
-
-.hero {
-  display: grid;
-  gap: var(--r-6);
-  grid-template-columns: minmax(0, 1fr);
-  align-items: center;
-}
-.hero__main {
-  display: grid;
-  gap: var(--r-7);
-  min-width: 0;
-  order: 2;
-}
-.hero__media {
-  margin: 0;
-  min-width: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  order: 1;
-}
-.hero__media img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100px;
-  mix-blend-mode: multiply;
-}
-@media (min-width: 860px) {
-  .hero {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
-    gap: var(--r-8);
-  }
-  .hero__main {
-    order: 0;
-  }
-  .hero__media {
-    justify-content: flex-end;
-    order: 0;
-  }
-  .hero__media img {
-    max-width: 460px;
-  }
-}
-.hero__intro {
-  font-size: var(--t-lead);
-  line-height: var(--lh-body);
-  color: var(--c-ink);
-  max-width: 52ch;
-  text-wrap: pretty;
-  margin: 0;
-}
-.rows {
-  display: block;
-}
-.rows__more {
-  margin-top: var(--r-5);
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-wide);
-  color: var(--c-mute);
-}
-.empty {
-  color: var(--c-mute);
-  font-size: var(--t-lead);
-  max-width: 50ch;
-  padding: var(--r-3) 0;
-}
-.art-strip__lead {
-  color: var(--c-mute);
-  font-size: var(--t-lead);
-  max-width: 50ch;
-  margin: 0 0 var(--r-5);
-}
-.art-strip__grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--r-4);
-}
-.art-strip__item {
-  margin: 0;
-}
-.art-strip__link {
-  display: block;
-  background: var(--c-paper-deep);
-  border: 1px solid var(--c-rule);
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  transition: border-color 220ms var(--ease-out);
-}
-.art-strip__link:hover {
-  border-color: var(--c-rule-hard);
-}
-.art-strip__link img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  mix-blend-mode: multiply;
-  transform: scale(1.25);
-  transform-origin: center;
-  transition: transform 600ms var(--ease-out);
-}
-.art-strip__link:hover img {
-  transform: scale(1);
-}
-@media (max-width: 540px) {
-  .art-strip__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .art-strip__item:nth-child(3) {
-    display: none;
-  }
-}
-</style>

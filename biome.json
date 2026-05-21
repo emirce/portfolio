@@ -6,7 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist"]
+		"includes": ["**", "!!**/dist", "!!.claude"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -29,6 +29,11 @@
 			"enabled": true
 		},
 		"experimentalFullSupportEnabled": true
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
 	},
 	"assist": {
 		"enabled": true,

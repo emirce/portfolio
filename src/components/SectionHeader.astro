@@ -8,38 +8,12 @@ interface Props {
 const { number, label, id } = Astro.props;
 ---
 
-<header class="sechead" id={id}>
-  <span class="sechead__pilcrow" aria-hidden="true">§</span>
-  <span class="sechead__number">{number}</span>
-  <span class="sechead__dash" aria-hidden="true">——</span>
-  <span class="sechead__label">{label}</span>
+<header
+  class="mb-r-6 inline-flex items-baseline gap-[0.6ch] font-mono text-eyebrow font-semibold tracking-eyebrow text-ink uppercase"
+  id={id}
+>
+  <span class="font-semibold text-accent" aria-hidden="true">§</span>
+  <span class="text-mute">{number}</span>
+  <span class="tracking-normal text-faint" aria-hidden="true">——</span>
+  <span class="text-ink">{label}</span>
 </header>
-
-<style>
-.sechead {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6ch;
-  font-family: var(--f-mono);
-  font-size: var(--t-eyebrow);
-  font-weight: 600;
-  letter-spacing: var(--tr-eyebrow);
-  text-transform: uppercase;
-  color: var(--c-ink);
-  margin-bottom: var(--r-6);
-}
-.sechead__pilcrow {
-  color: var(--c-accent);
-  font-weight: 600;
-}
-.sechead__number {
-  color: var(--c-mute);
-}
-.sechead__dash {
-  color: var(--c-faint);
-  letter-spacing: 0;
-}
-.sechead__label {
-  color: var(--c-ink);
-}
-</style>

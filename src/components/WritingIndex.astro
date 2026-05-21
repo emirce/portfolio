@@ -9,11 +9,15 @@ const posts = all.sort(
 );
 ---
 
-<div class="windex container">
+<div class="container pt-r-7">
   <SectionHeader number="04" label="Writing" />
 
-  <header class="windex__head reveal reveal-1">
-    <h1 class="windex__title">Writing</h1>
+  <header class="mb-r-7 reveal reveal-1">
+    <h1
+      class="mb-r-4 text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.05] tracking-tighter [font-variation-settings:'opsz'_48]"
+    >
+      Writing
+    </h1>
     <p class="lead">
       {posts.length > 0
         ? 'Short notes on software, tooling, and whatever sticks at the desk.'
@@ -22,39 +26,16 @@ const posts = all.sort(
   </header>
 
   {posts.length > 0 && (
-    <div class="rows reveal reveal-2">
+    <div class="block reveal reveal-2">
       {posts.map((p) => (
         <PostRow title={p.data.title} date={p.data.date} slug={p.data.slug} />
       ))}
     </div>
   )}
 
-  <nav class="windex__nav reveal reveal-3">
+  <nav
+    class="mt-r-7 border-rule border-t pt-r-5 font-mono text-label tracking-wide uppercase reveal reveal-3"
+  >
     <a class="linklike" href="/">← Back to index</a>
   </nav>
 </div>
-
-<style>
-.windex {
-  padding-top: var(--r-7);
-}
-.windex__head {
-  margin-bottom: var(--r-7);
-}
-.windex__title {
-  font-size: clamp(2rem, 5.5vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: var(--tr-tighter);
-  font-variation-settings: "opsz" 48;
-  margin-bottom: var(--r-4);
-}
-.windex__nav {
-  margin-top: var(--r-7);
-  padding-top: var(--r-5);
-  border-top: 1px solid var(--c-rule);
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-wide);
-}
-</style>

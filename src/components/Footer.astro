@@ -32,63 +32,25 @@ const footerContacts = [
 ];
 ---
 
-<footer class="foot">
+<footer class="mt-r-9 border-rule border-t bg-paper pt-r-9 pb-r-7">
   <div class="container">
     <SectionHeader number="05" label="Elsewhere" id="elsewhere" />
     <ContactList items={footerContacts} />
 
-    <hr class="rule foot__rule">
+    <hr class="rule mt-r-7 mb-r-5">
 
-    <div class="foot__bottom">
-      <span class="foot__copy"
-        >© {year} Emir Celovic · Built quietly in 2026.</span
-      >
-      <span class="foot__meta">
-        <a class="foot__link" href="/writing/hello-world/">Hello, World!</a>
+    <div
+      class="flex flex-wrap justify-between gap-r-3 font-mono text-eyebrow tracking-eyebrow text-mute uppercase"
+    >
+      <span>© {year} Emir Celovic · Built quietly in 2026.</span>
+      <span class="inline-flex items-baseline gap-[0.8ch]">
+        <a
+          class="border-b border-transparent text-mute transition-[color,border-color] duration-[220ms] ease-out hover:border-accent hover:text-accent"
+          href="/writing/hello-world/"
+        >
+          Hello, World!
+        </a>
       </span>
     </div>
   </div>
 </footer>
-
-<style>
-.foot {
-  padding-top: var(--r-9);
-  padding-bottom: var(--r-7);
-  border-top: 1px solid var(--c-rule);
-  margin-top: var(--r-9);
-  background: var(--c-paper);
-}
-.foot__rule {
-  margin: var(--r-7) 0 var(--r-5);
-}
-.foot__bottom {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--r-3);
-  font-family: var(--f-mono);
-  font-size: var(--t-eyebrow);
-  color: var(--c-mute);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-eyebrow);
-}
-.foot__meta {
-  display: inline-flex;
-  gap: 0.8ch;
-  align-items: baseline;
-}
-.foot__sep {
-  color: var(--c-faint);
-}
-.foot__link {
-  color: var(--c-mute);
-  border-bottom: 1px solid transparent;
-  transition:
-    color 220ms var(--ease-out),
-    border-color 220ms var(--ease-out);
-}
-.foot__link:hover {
-  color: var(--c-accent);
-  border-bottom-color: var(--c-accent);
-}
-</style>

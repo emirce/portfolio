@@ -6,25 +6,22 @@ interface Props {
 const { label } = Astro.props;
 ---
 
-<span class="dot" role={label ? 'img' : undefined} aria-label={label}>
-  <span class="dot__core" aria-hidden="true"></span>
-</span>
-
-<style>
-.dot {
-  display: inline-block;
-  width: 0.6em;
-  height: 0.6em;
-  margin-left: 0.5ch;
-  vertical-align: 0.06em;
-  line-height: 0;
-}
-.dot__core {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: var(--c-accent);
-  box-shadow: 0 0 0 3px rgba(194, 74, 31, 0.18);
-}
-</style>
+{label ? (
+		<span
+			class="ml-[0.5ch] inline-block size-[0.6em] align-[0.06em] leading-none"
+			role="img"
+			aria-label={label}
+		>
+			<span
+				class="block size-full rounded-full bg-accent shadow-[0_0_0_3px_rgb(194_74_31_/_18%)]"
+				aria-hidden="true"
+			/>
+		</span>
+	) : (
+		<span class="ml-[0.5ch] inline-block size-[0.6em] align-[0.06em] leading-none">
+			<span
+				class="block size-full rounded-full bg-accent shadow-[0_0_0_3px_rgb(194_74_31_/_18%)]"
+				aria-hidden="true"
+			/>
+		</span>
+	)}

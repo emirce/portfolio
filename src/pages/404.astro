@@ -4,38 +4,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Page not found. — Emir Celovic">
-  <div class="four container">
+  <div class="container pt-r-7 pb-r-9">
     <SectionHeader number="00" label="Error 404" />
-    <div class="four__inner reveal reveal-1">
-      <h1 class="four__title">Page not found.</h1>
+    <div class="reveal reveal-1">
+      <h1
+        class="mb-r-4 max-w-[18ch] text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.05] tracking-tighter [font-variation-settings:'opsz'_96]"
+      >
+        Page not found.
+      </h1>
       <p class="lead">
         The page you were looking for does not exist, or has been moved. Return
         to the index.
       </p>
-      <a class="linklike four__cta" href="/">← Back to index</a>
+      <a
+        class="linklike mt-r-5 inline-block font-mono text-label tracking-wide uppercase"
+        href="/"
+        >← Back to index</a
+      >
     </div>
   </div>
 </BaseLayout>
-
-<style>
-.four {
-  padding-top: var(--r-7);
-  padding-bottom: var(--r-9);
-}
-.four__title {
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
-  line-height: 1.05;
-  letter-spacing: var(--tr-tighter);
-  font-variation-settings: "opsz" 96;
-  margin-bottom: var(--r-4);
-  max-width: 18ch;
-}
-.four__cta {
-  margin-top: var(--r-5);
-  display: inline-block;
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-wide);
-}
-</style>

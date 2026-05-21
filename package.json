@@ -18,6 +18,8 @@
 		"astro": "^6.1.9"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.13"
+		"@biomejs/biome": "2.4.13",
+		"@tailwindcss/vite": "^4.3.0",
+		"tailwindcss": "^4.3.0"
 	}
 }

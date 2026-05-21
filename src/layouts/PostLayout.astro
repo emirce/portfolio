@@ -20,78 +20,37 @@ const dateLong = new Intl.DateTimeFormat("en-GB", {
 ---
 
 <BaseLayout title={`${title} — Emir Celovic`} description={summary}>
-  <article class="post container">
+  <article class="container pt-r-7">
     <SectionHeader number={number} label="Writing" />
 
-    <header class="post__head reveal reveal-1">
-      <p class="post__eyebrow">
+    <header class="mb-r-6 reveal reveal-1">
+      <p
+        class="mb-r-4 font-mono text-eyebrow tracking-eyebrow text-mute uppercase"
+      >
         <time datetime={date.toISOString()}>{dateLong}</time>
       </p>
-      <h1 class="post__title">{title}</h1>
-      <p class="post__lede">{summary}</p>
+      <h1
+        class="mb-r-4 max-w-[22ch] text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.05] tracking-tighter [font-variation-settings:'opsz'_48]"
+      >
+        {title}
+      </h1>
+      <p class="max-w-[56ch] text-lead text-mute">{summary}</p>
     </header>
 
-    <hr class="rule post__rule reveal reveal-2">
+    <hr class="rule my-r-7 reveal reveal-2">
 
-    <div class="post__body prose reveal reveal-3">
+    <div class="prose pb-r-8 reveal reveal-3">
       <InfoBanner label="Note">
         This post was written entirely by a human.
       </InfoBanner>
       <slot />
     </div>
 
-    <nav class="post__nav reveal reveal-4">
+    <nav
+      class="flex flex-wrap justify-between gap-r-4 border-rule border-t pt-r-6 font-mono text-label tracking-wide text-mute uppercase reveal reveal-4"
+    >
       <a class="linklike" href="/writing/">← All notes</a>
       <a class="linklike" href="/">Back to index</a>
     </nav>
   </article>
 </BaseLayout>
-
-<style>
-.post {
-  padding-top: var(--r-7);
-}
-.post__head {
-  margin-bottom: var(--r-6);
-}
-.post__eyebrow {
-  font-family: var(--f-mono);
-  font-size: var(--t-eyebrow);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-eyebrow);
-  color: var(--c-mute);
-  margin-bottom: var(--r-4);
-}
-.post__title {
-  font-size: clamp(2rem, 5.5vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: var(--tr-tighter);
-  font-variation-settings: "opsz" 48;
-  margin-bottom: var(--r-4);
-  max-width: 22ch;
-}
-.post__lede {
-  color: var(--c-mute);
-  font-size: var(--t-lead);
-  max-width: 56ch;
-}
-.post__rule {
-  margin: var(--r-7) 0 var(--r-7);
-}
-.post__body {
-  padding-bottom: var(--r-8);
-}
-.post__nav {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--r-4);
-  padding-top: var(--r-6);
-  border-top: 1px solid var(--c-rule);
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-wide);
-  color: var(--c-mute);
-}
-</style>

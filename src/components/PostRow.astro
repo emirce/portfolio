@@ -18,67 +18,19 @@ const dateParts = dateFmt
   .replace(/-/g, "·");
 ---
 
-<a class="prow" href={href}>
-  <span class="prow__date">{dateParts}</span>
-  <span class="prow__title">{title}</span>
-  <span class="prow__arrow" aria-hidden="true">→</span>
+<a
+  class="group grid grid-cols-[14ch_minmax(0,1fr)_2ch] items-baseline gap-r-4 border-rule border-b py-r-4 text-ink transition-[padding-left,color] duration-[280ms,220ms] ease-out first:border-t hover:pl-r-3 hover:text-accent max-[540px]:grid-cols-[1fr_2ch] max-[540px]:grid-rows-2 max-[540px]:gap-x-r-4 max-[540px]:gap-y-[2px]"
+  href={href}
+>
+  <span
+    class="font-mono text-eyebrow tracking-wide text-mute numerals max-[540px]:col-span-full"
+    >{dateParts}</span
+  >
+  <span class="text-lead font-medium tracking-tight">{title}</span>
+  <span
+    class="text-right font-mono text-faint transition-[transform,color] duration-[280ms,220ms] ease-out group-hover:translate-x-1 group-hover:text-accent max-[540px]:hidden"
+    aria-hidden="true"
+  >
+    →
+  </span>
 </a>
-
-<style>
-.prow {
-  display: grid;
-  grid-template-columns: 14ch minmax(0, 1fr) 2ch;
-  gap: var(--r-4);
-  align-items: baseline;
-  padding: var(--r-4) 0;
-  border-bottom: 1px solid var(--c-rule);
-  color: var(--c-ink);
-  transition:
-    padding-left 280ms var(--ease-out),
-    color 220ms var(--ease-out);
-}
-.prow:first-child {
-  border-top: 1px solid var(--c-rule);
-}
-.prow__date {
-  font-family: var(--f-mono);
-  font-size: var(--t-eyebrow);
-  color: var(--c-mute);
-  letter-spacing: var(--tr-wide);
-  font-variant-numeric: tabular-nums;
-}
-.prow__title {
-  font-size: var(--t-lead);
-  font-weight: 500;
-  letter-spacing: var(--tr-tight);
-}
-.prow__arrow {
-  font-family: var(--f-mono);
-  color: var(--c-faint);
-  text-align: right;
-  transition:
-    transform 280ms var(--ease-out),
-    color 220ms var(--ease-out);
-}
-.prow:hover {
-  padding-left: var(--r-3);
-  color: var(--c-accent);
-}
-.prow:hover .prow__arrow {
-  color: var(--c-accent);
-  transform: translateX(4px);
-}
-@media (max-width: 540px) {
-  .prow {
-    grid-template-columns: 1fr 2ch;
-    grid-template-rows: auto auto;
-    row-gap: 2px;
-  }
-  .prow__date {
-    grid-column: 1 / -1;
-  }
-  .prow__arrow {
-    display: none;
-  }
-}
-</style>

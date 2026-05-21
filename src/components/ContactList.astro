@@ -13,20 +13,20 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<ul class="contacts" role="list">
+<ul class="m-0 flex list-none flex-wrap items-center gap-r-4 p-0" role="list">
   {items.map((item) => {
     const isMailto = item.href.startsWith("mailto:");
     return (
-      <li class="contacts__item">
+      <li class="m-0">
         <a
-          class="contacts__link"
+          class="inline-flex size-8 items-center justify-center text-mute opacity-75 transition-opacity duration-[220ms] ease-out hover:opacity-100 focus-visible:opacity-100"
           href={item.href}
           aria-label={`${item.label} — ${item.value}`}
           rel="noopener noreferrer me"
           target={isMailto ? undefined : "_blank"}
         >
           <img
-            class="contacts__icon"
+            class="block size-[22px] object-contain"
             src={item.icon}
             alt=""
             width="20"
@@ -39,54 +39,3 @@ const { items } = Astro.props;
     );
   })}
 </ul>
-
-<style>
-.contacts {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--r-4);
-}
-.contacts__item {
-  margin: 0;
-}
-.contacts__link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  color: var(--c-mute);
-  opacity: 0.75;
-  transition: opacity 220ms var(--ease-out);
-}
-.contacts__link:hover,
-.contacts__link:focus-visible {
-  opacity: 1;
-}
-.contacts__icon {
-  display: block;
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-}
-.contacts__icon[src$="linkedin.svg"] {
-  width: 22px;
-  height: 22px;
-}
-.contacts__icon[src$="email.svg"] {
-  width: 22px;
-  height: 22px;
-}
-.contacts__icon[src$="github.svg"] {
-  width: 22px;
-  height: 22px;
-}
-.contacts__icon[src$="x.svg"] {
-  width: 22px;
-  height: 22px;
-}
-</style>

@@ -2,24 +2,7 @@
 import Mark from "./Mark.astro";
 ---
 
-<header class="topbar">
-  <div class="container topbar__inner"><Mark /></div>
+<header class="sticky top-0 z-10 bg-paper backdrop-saturate-[140%]">
+  <div class="container flex items-center justify-between py-r-4"><Mark /></div>
   <hr class="rule">
 </header>
-
-<style>
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--c-paper);
-  backdrop-filter: saturate(140%);
-}
-.topbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: var(--r-4);
-  padding-bottom: var(--r-4);
-}
-</style>

@@ -1,4 +1,5 @@
 // @ts-check
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { createCssVariablesTheme } from "shiki";
 
@@ -11,6 +12,9 @@ const cssVariablesTheme = createCssVariablesTheme({
 export default defineConfig({
 	site: "https://emircelovic.com",
 	trailingSlash: "always",
+	vite: {
+		plugins: [tailwindcss()],
+	},
 	build: {
 		inlineStylesheets: "auto",
 	},

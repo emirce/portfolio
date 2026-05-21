@@ -14,11 +14,15 @@ const rendered = await Promise.all(
 );
 ---
 
-<div class="aindex container">
+<div class="container pt-r-7">
   <SectionHeader number="05" label="Art" />
 
-  <header class="aindex__head reveal reveal-1">
-    <h1 class="aindex__title">Art</h1>
+  <header class="mb-r-8 reveal reveal-1">
+    <h1
+      class="mb-r-4 text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.05] tracking-tighter [font-variation-settings:'opsz'_48]"
+    >
+      Art
+    </h1>
     <p class="lead">
       {pieces.length > 0
         ? "Maps and cartographic art. Mostly work done for Cartographr Co."
@@ -27,7 +31,7 @@ const rendered = await Promise.all(
   </header>
 
   {pieces.length > 0 && (
-    <div class="aindex__list reveal reveal-2">
+    <div class="block reveal reveal-2">
       {rendered.map(({ data, Content }, i) => (
         <ArtPiece
           number={data.number}
@@ -47,35 +51,9 @@ const rendered = await Promise.all(
     </div>
   )}
 
-  <nav class="aindex__nav reveal reveal-3">
+  <nav
+    class="mt-r-7 border-rule border-t pt-r-5 font-mono text-label tracking-wide uppercase reveal reveal-3"
+  >
     <a class="linklike" href="/">← Back to index</a>
   </nav>
 </div>
-
-<style>
-.aindex {
-  padding-top: var(--r-7);
-}
-.aindex__head {
-  margin-bottom: var(--r-8);
-}
-.aindex__title {
-  font-size: clamp(2rem, 5.5vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: var(--tr-tighter);
-  font-variation-settings: "opsz" 48;
-  margin-bottom: var(--r-4);
-}
-.aindex__list {
-  display: block;
-}
-.aindex__nav {
-  margin-top: var(--r-7);
-  padding-top: var(--r-5);
-  border-top: 1px solid var(--c-rule);
-  font-family: var(--f-mono);
-  font-size: var(--t-label);
-  text-transform: uppercase;
-  letter-spacing: var(--tr-wide);
-}
-</style>
