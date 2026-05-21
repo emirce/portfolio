@@ -1,23 +1,31 @@
 ---
-import { getCollection, render } from "astro:content";
+import { PortableText } from "astro-portabletext";
 import PostLayout from "../../../layouts/PostLayout.astro";
+import {
+  getWritingDate,
+  getWritingEntry,
+  getWritingSlugs,
+} from "../../../sanity/writing";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts", (e) => !e.data.draft);
-  return posts.map((post) => ({
-    params: { slug: post.data.slug },
-    props: { post },
+  const slugs = await getWritingSlugs();
+  return slugs.map((slug) => ({
+    params: { slug },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { slug } = Astro.params;
+const post = slug ? await getWritingEntry(slug) : null;
+
+if (!post) {
+  return Astro.redirect("/404/");
+}
 ---
 
 <PostLayout
-  title={post.data.title}
-  date={post.data.date}
-  summary={post.data.summary}
+  title={post.title}
+  date={getWritingDate(post)}
+  summary={post.summary}
 >
-  <Content />
+  <PortableText value={post.body} />
 </PostLayout>

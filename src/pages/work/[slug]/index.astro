@@ -1,37 +1,38 @@
 ---
-import { getCollection, render } from "astro:content";
+import { PortableText } from "astro-portabletext";
 import ProjectDetail from "../../../components/ProjectDetail.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getWorkEntry, getWorkSlugs } from "../../../sanity/work";
 
 export async function getStaticPaths() {
-  const projects = await getCollection(
-    "projects",
-    (e) => e.data.status !== "upcoming",
-  );
-  return projects.map((project) => ({
-    params: { slug: project.data.slug },
-    props: { project },
+  const slugs = await getWorkSlugs();
+  return slugs.map((slug) => ({
+    params: { slug },
   }));
 }
 
-const { project } = Astro.props;
-const { Content } = await render(project);
+const { slug } = Astro.params;
+const project = slug ? await getWorkEntry(slug) : null;
+
+if (!project) {
+  return Astro.redirect("/404/");
+}
 ---
 
 <BaseLayout
-  title={`${project.data.title} — Emir Celovic`}
-  description={project.data.summary}
+  title={`${project.title} — Emir Celovic`}
+  description={project.summary}
 >
   <ProjectDetail
-    number={project.data.number}
-    title={project.data.title}
-    year={project.data.year}
-    tags={project.data.tags}
-    summary={project.data.summary}
-    link={project.data.link}
-    repo={project.data.repo}
-    status={project.data.status}
+    number={project.number}
+    title={project.title}
+    year={project.year}
+    tags={project.tags}
+    summary={project.summary}
+    link={project.link}
+    repo={project.repo}
+    status={project.status}
   >
-    <Content />
+    {project.body && <PortableText value={project.body} />}
   </ProjectDetail>
 </BaseLayout>

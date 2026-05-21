@@ -9,7 +9,7 @@ const pieces = all.sort((a, b) => a.data.order - b.data.order);
 const rendered = await Promise.all(
   pieces.map(async (p) => {
     const { Content } = await render(p);
-    return { data: p.data, Content };
+    return { data: p.data, id: p.id, Content };
   }),
 );
 ---
@@ -31,11 +31,12 @@ const rendered = await Promise.all(
   </header>
 
   {pieces.length > 0 && (
-    <div class="block reveal reveal-2">
-      {rendered.map(({ data, Content }, i) => (
-        <ArtPiece
-          number={data.number}
-          title={data.title}
+		<div class="block reveal reveal-2">
+			{rendered.map(({ data, id, Content }, i) => (
+				<ArtPiece
+					key={id}
+					number={data.number}
+					title={data.title}
           year={data.year}
           medium={data.medium}
           imageKey={data.key}

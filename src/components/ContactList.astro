@@ -15,10 +15,10 @@ const { items } = Astro.props;
 
 <ul class="m-0 flex list-none flex-wrap items-center gap-r-4 p-0" role="list">
   {items.map((item) => {
-    const isMailto = item.href.startsWith("mailto:");
-    return (
-      <li class="m-0">
-        <a
+		const isMailto = item.href.startsWith("mailto:");
+		return (
+			<li class="m-0" key={item.href}>
+				<a
           class="inline-flex size-9 items-center justify-center border border-rule bg-paper/50 text-mute opacity-80 transition-[border-color,background-color,opacity,transform] duration-[220ms,220ms,220ms,320ms] ease-out hover:-translate-y-px hover:border-rule-hard hover:bg-paper-warm hover:opacity-100 focus-visible:opacity-100"
           href={item.href}
           aria-label={`${item.label}: ${item.value}`}

@@ -1,5 +1,7 @@
 ---
 import { getCollection } from "astro:content";
+import { getWorkEntries } from "../sanity/work";
+import { getWritingDate, getWritingEntries } from "../sanity/writing";
 import ContactList from "./ContactList.astro";
 import PostRow from "./PostRow.astro";
 import ProjectRow from "./ProjectRow.astro";
@@ -34,13 +36,9 @@ const heroContacts = [
 
 const R2_ART_BASE = "https://assets.celovic.com/art/";
 
-const allProjects = await getCollection("projects");
-const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+const projects = await getWorkEntries();
 
-const allPosts = await getCollection("posts", (e) => !e.data.draft);
-const posts = allPosts
-  .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date))
-  .slice(0, 5);
+const posts = (await getWritingEntries()).slice(0, 5);
 
 const allArt = await getCollection("art");
 const artPreview = allArt
@@ -90,13 +88,14 @@ const artPreview = allArt
     </div>
     <div class="block reveal reveal-2">
       {projects.map((p) => (
-        <ProjectRow
-          number={p.data.number}
-          title={p.data.title}
-          year={p.data.year}
-          tags={p.data.tags}
-          status={p.data.status}
-          slug={p.data.slug}
+				<ProjectRow
+					key={p._id}
+					number={p.number}
+					title={p.title}
+					year={p.year}
+          tags={p.tags}
+          status={p.status}
+          slug={p.slug}
         />
       ))}
     </div>
@@ -107,11 +106,16 @@ const artPreview = allArt
       <SectionHeader number="03" label="Writing" id="sec-03" />
     </div>
     {posts.length > 0 ? (
-      <div class="block reveal reveal-2">
-        {posts.map((p) => (
-          <PostRow title={p.data.title} date={p.data.date} slug={p.data.slug} />
-        ))}
-        <div class="mt-r-5 font-mono text-label tracking-wide text-mute uppercase">
+		<div class="block reveal reveal-2">
+			{posts.map((p) => (
+				<PostRow
+					key={p._id}
+					title={p.title}
+					date={getWritingDate(p)}
+					slug={p.slug}
+				/>
+			))}
+			<div class="mt-r-5 font-mono text-label tracking-wide text-mute uppercase">
           <a class="linklike" href="/writing/">All notes →</a>
         </div>
       </div>
@@ -130,10 +134,10 @@ const artPreview = allArt
       <div class="reveal reveal-2">
         <ul
           class="m-0 grid list-none grid-cols-3 gap-r-4 p-0 max-[540px]:grid-cols-2 min-[860px]:gap-r-5"
-        >
-          {artPreview.map((p) => (
-            <li class="m-0 max-[540px]:nth-[3]:hidden">
-              <a
+				>
+					{artPreview.map((p) => (
+						<li class="m-0 max-[540px]:nth-[3]:hidden" key={p.id}>
+							<a
                 class="group block aspect-[4/3] overflow-hidden border border-rule bg-paper-deep shadow-[0_1px_0_var(--color-paper-warm)_inset] transition-[border-color,transform] duration-[220ms,500ms] ease-out hover:-translate-y-1 hover:border-rule-hard"
                 href="/art/"
                 aria-label={`View ${p.data.title}`}
