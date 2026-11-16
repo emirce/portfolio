@@ -1,0 +1,62 @@
+---
+const pathname = Astro.url.pathname;
+
+const nav = [
+  { label: "Writing", href: "/writing/" },
+  { label: "Art", href: "/art/" },
+];
+---
+
+<header class="wrap flex items-center justify-between py-8">
+  <a class="font-medium" href="/">Emir Celovic</a>
+  <nav class="flex items-center gap-5 text-sm text-muted" aria-label="Main">
+    {nav.map((item) => (
+      <a
+        key={item.href}
+        class:list={[
+          "transition-colors hover:text-fg",
+          pathname.startsWith(item.href) && "text-fg",
+        ]}
+        href={item.href}
+        aria-current={pathname.startsWith(item.href) ? "page" : undefined}
+      >
+        {item.label}
+      </a>
+    ))}
+    <button
+      class="-m-2 cursor-pointer p-2 transition-colors hover:text-fg"
+      type="button"
+      id="theme-toggle"
+      aria-label="Toggle color theme"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <circle
+          cx="8"
+          cy="8"
+          r="6.25"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+        <path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor" />
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<script>
+const root = document.documentElement;
+
+document.getElementById("theme-toggle")?.addEventListener("click", () => {
+  const systemDark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const current = root.dataset.theme ?? (systemDark ? "dark" : "light");
+  const next = current === "dark" ? "light" : "dark";
+
+  root.dataset.theme = next;
+  try {
+    localStorage.setItem("theme", next);
+  } catch {
+    // Storage unavailable: the choice just won't persist.
+  }
+});
+</script>

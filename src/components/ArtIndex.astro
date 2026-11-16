@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import ArtPiece from "./ArtPiece.astro";
-import SectionHeader from "./SectionHeader.astro";
 
 const all = await getCollection("art");
 const pieces = all.sort((a, b) => a.data.order - b.data.order);
@@ -14,29 +13,22 @@ const rendered = await Promise.all(
 );
 ---
 
-<div class="container pt-r-7">
-  <SectionHeader number="05" label="Art" />
-
-  <header class="mb-r-8 reveal reveal-1">
-    <h1
-      class="mb-r-4 text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.05] tracking-tighter [font-variation-settings:'opsz'_48]"
-    >
-      Art
-    </h1>
-    <p class="lead">
+<div class="wrap pt-8">
+  <header class="mb-10">
+    <h1 class="text-2xl font-semibold tracking-tight">Art</h1>
+    <p class="mt-2 text-muted">
       {pieces.length > 0
         ? "Maps and cartographic art. Mostly work done for Cartographr Co."
-        : "Pieces in progress. The first will arrive here when it is ready."}
+        : "Nothing here yet."}
     </p>
   </header>
 
   {pieces.length > 0 && (
-		<div class="block reveal reveal-2">
-			{rendered.map(({ data, id, Content }, i) => (
-				<ArtPiece
-					key={id}
-					number={data.number}
-					title={data.title}
+    <div class="grid gap-16">
+      {rendered.map(({ data, id, Content }, i) => (
+        <ArtPiece
+          key={id}
+          title={data.title}
           year={data.year}
           medium={data.medium}
           imageKey={data.key}
@@ -51,10 +43,4 @@ const rendered = await Promise.all(
       ))}
     </div>
   )}
-
-  <nav
-    class="mt-r-7 border-rule border-t pt-r-5 font-mono text-label tracking-wide uppercase reveal reveal-3"
-  >
-    <a class="linklike" href="/">← Back to index</a>
-  </nav>
 </div>

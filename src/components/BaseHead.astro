@@ -20,8 +20,18 @@ const canonical = new URL(pathname, Astro.site).toString();
   content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
 <meta name="generator" content={Astro.generator}>
-<meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#F4F1EA">
+<meta name="color-scheme" content="light dark">
+
+<script is:inline>
+try {
+  const theme = localStorage.getItem("theme");
+  if (theme === "light" || theme === "dark") {
+    document.documentElement.dataset.theme = theme;
+  }
+} catch {
+  // Storage unavailable: fall back to the system color scheme.
+}
+</script>
 
 <title>{fullTitle}</title>
 <meta name="description" content={desc}>
@@ -29,21 +39,6 @@ const canonical = new URL(pathname, Astro.site).toString();
 <link rel="canonical" href={canonical}>
 
 <link rel="icon" href="/favicon.ico" sizes="32x32">
-
-<link
-  rel="preload"
-  as="font"
-  type="font/woff2"
-  href="/fonts/MonaSans-VF.woff2"
-  crossorigin="anonymous"
->
-<link
-  rel="preload"
-  as="font"
-  type="font/woff2"
-  href="/fonts/CommitMono-VF.woff2"
-  crossorigin="anonymous"
->
 
 <meta property="og:type" content="website">
 <meta property="og:title" content={fullTitle}>

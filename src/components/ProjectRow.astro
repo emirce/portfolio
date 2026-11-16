@@ -2,51 +2,26 @@
 interface Props {
   title: string;
   year: number;
-  tags: string[];
+  summary: string;
   status: "live" | "archived" | "upcoming";
   slug: string;
-  number?: string;
 }
 
-const { title, year, tags, status, slug } = Astro.props;
+const { title, year, summary, status, slug } = Astro.props;
 
 const isUpcoming = status === "upcoming";
-const href = isUpcoming ? null : `/work/${slug}/`;
-const tagText = tags.length > 0 ? tags.join(" · ") : "";
-const meta = isUpcoming
-  ? "In preparation"
-  : `${tagText}${tagText ? " · " : ""}${year}`;
 ---
 
-{href ? (
-  <a
-    class="group grid grid-cols-[minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b px-r-3 py-r-4 text-ink transition-[background-color,color,transform,border-color] duration-[280ms,220ms,360ms,220ms] ease-out first:border-t hover:-translate-y-px hover:border-rule-hard hover:bg-paper-warm hover:text-accent max-[640px]:grid-cols-[minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
-    href={href}
-  >
-    <span class="text-h3 font-[540] tracking-tight">{title}</span>
-    <span
-      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-1 max-[640px]:col-end-[-1] max-[640px]:text-left"
-    >
-      {meta}
-    </span>
-    <span
-      class="text-right font-mono text-faint transition-[transform,color] duration-[280ms,220ms] ease-out group-hover:translate-x-1 group-hover:text-accent max-[640px]:hidden"
-      aria-hidden="true"
-    >
-      →
-    </span>
-  </a>
-) : (
-  <div
-    class="grid grid-cols-[minmax(0,1fr)_auto_2ch] items-baseline gap-r-4 border-rule border-b px-r-3 py-r-4 text-mute transition-colors duration-[220ms] ease-out first:border-t max-[640px]:grid-cols-[minmax(0,1fr)_auto] max-[640px]:grid-rows-2 max-[640px]:gap-x-r-4 max-[640px]:gap-y-r-1"
-    aria-disabled="true"
-  >
-    <span class="text-h3 font-[540] tracking-tight text-faint">{title}</span>
-    <span
-      class="text-right font-mono text-eyebrow tracking-eyebrow text-mute uppercase numerals max-[640px]:col-start-1 max-[640px]:col-end-[-1] max-[640px]:text-left"
-    >
-      {meta}
-    </span>
-    <span class="text-right font-mono text-faint max-[640px]:hidden" aria-hidden="true">·</span>
+<li class="flex items-baseline justify-between gap-6">
+  <div class="min-w-0">
+    {isUpcoming ? (
+      <span class="font-medium text-muted">{title}</span>
+    ) : (
+      <a class="link font-medium" href={`/work/${slug}/`}>{title}</a>
+    )}
+    <p class="text-muted">{summary}</p>
   </div>
-)}
+  <span class="shrink-0 text-sm text-muted tabular-nums">
+    {isUpcoming ? "Soon" : year}
+  </span>
+</li>

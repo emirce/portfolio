@@ -5,34 +5,6 @@ import { getWritingDate, getWritingEntries } from "../sanity/writing";
 import ContactList from "./ContactList.astro";
 import PostRow from "./PostRow.astro";
 import ProjectRow from "./ProjectRow.astro";
-import SectionHeader from "./SectionHeader.astro";
-
-const heroContacts = [
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/emir-celovic",
-    href: "https://www.linkedin.com/in/emir-celovic-68316a217/",
-    icon: "/icons/linkedin.svg",
-  },
-  {
-    label: "X",
-    value: "x.com/emirthedev",
-    href: "https://x.com/emirthedev",
-    icon: "/icons/x.svg",
-  },
-  {
-    label: "GitHub",
-    value: "github.com/emirce",
-    href: "https://github.com/emirce",
-    icon: "/icons/github.svg",
-  },
-  {
-    label: "Email",
-    value: "emir@celovic.com",
-    href: "mailto:emir@celovic.com",
-    icon: "/icons/email.svg",
-  },
-];
 
 const R2_ART_BASE = "https://assets.celovic.com/art/";
 
@@ -46,123 +18,74 @@ const artPreview = allArt
   .slice(0, 3);
 ---
 
-<div class="container pt-r-7">
-  <section class="section pt-r-5 pb-r-8">
-    <div
-      class="grid grid-cols-1 items-end gap-r-7 min-[860px]:grid-cols-[minmax(0,1fr)_minmax(220px,0.72fr)] min-[860px]:gap-r-8"
-    >
-      <div class="order-2 grid min-w-0 gap-r-6 min-[860px]:order-none">
-        <h1
-          class="max-w-[8ch] text-display leading-[0.83] tracking-tighter reveal reveal-2"
-        >
-          Emir Celovic
-        </h1>
-
-        <p class="m-0 text-lead leading-body text-mute reveal reveal-3">
-          Currently building <i class="text-ink">Cartographr Co.</i>.
-        </p>
-
-        <div class="reveal reveal-4"><ContactList items={heroContacts} /></div>
-      </div>
-
-      <figure
-        class="order-1 m-0 flex min-w-0 items-center justify-start min-[860px]:order-none min-[860px]:justify-end reveal reveal-3"
-        aria-hidden="true"
-      >
-        <img
-          src="/img/bear_drawing.webp"
-          alt=""
-          class="block h-auto w-full max-w-[132px] rotate-[-2deg] mix-blend-multiply opacity-95 min-[860px]:max-w-[420px]"
-          width="512"
-          height="512"
-          loading="eager"
-          decoding="async"
-        >
-      </figure>
-    </div>
+<div class="wrap pt-8">
+  <section>
+    <h1 class="sr-only">Emir Celovic</h1>
+    <p>Currently building Cartographr Co.</p>
+    <div class="mt-3 text-muted"><ContactList /></div>
   </section>
 
-  <section class="section" aria-labelledby="sec-02">
-    <div class="reveal reveal-1">
-      <SectionHeader number="02" label="Selected Work" id="sec-02" />
-    </div>
-    <div class="block reveal reveal-2">
+  <section class="mt-16" aria-labelledby="work">
+    <h2 class="mb-4 text-sm text-muted" id="work">Work</h2>
+    <ul class="grid gap-5">
       {projects.map((p) => (
-				<ProjectRow
-					key={p._id}
-					number={p.number}
-					title={p.title}
-					year={p.year}
-          tags={p.tags}
+        <ProjectRow
+          key={p._id}
+          title={p.title}
+          year={p.year}
+          summary={p.summary}
           status={p.status}
           slug={p.slug}
         />
       ))}
-    </div>
+    </ul>
   </section>
 
-  <section class="section" aria-labelledby="sec-03">
-    <div class="reveal reveal-1">
-      <SectionHeader number="03" label="Writing" id="sec-03" />
+  <section class="mt-16" aria-labelledby="writing">
+    <div class="mb-4 flex items-baseline justify-between text-sm text-muted">
+      <h2 id="writing">Writing</h2>
+      {posts.length > 0 && <a class="link" href="/writing/">All notes</a>}
     </div>
     {posts.length > 0 ? (
-		<div class="block reveal reveal-2">
-			{posts.map((p) => (
-				<PostRow
-					key={p._id}
-					title={p.title}
-					date={getWritingDate(p)}
-					slug={p.slug}
-				/>
-			))}
-			<div class="mt-r-5 font-mono text-label tracking-wide text-mute uppercase">
-          <a class="linklike" href="/writing/">All notes →</a>
-        </div>
-      </div>
+      <ul class="grid gap-3">
+        {posts.map((p) => (
+          <PostRow key={p._id} title={p.title} date={getWritingDate(p)} slug={p.slug} />
+        ))}
+      </ul>
     ) : (
-      <p class="max-w-[50ch] py-r-3 text-lead text-mute reveal reveal-2">
-        Notes in progress. The first piece will arrive here when it is ready.
-      </p>
+      <p class="text-muted">Nothing here yet.</p>
     )}
   </section>
 
-  <section class="section" aria-labelledby="sec-04">
-    <div class="reveal reveal-1">
-      <SectionHeader number="04" label="Art" id="sec-04" />
+  <section class="mt-16" aria-labelledby="art">
+    <div class="mb-4 flex items-baseline justify-between text-sm text-muted">
+      <h2 id="art">Art</h2>
+      {artPreview.length > 0 && <a class="link" href="/art/">All pieces</a>}
     </div>
     {artPreview.length > 0 ? (
-      <div class="reveal reveal-2">
-        <ul
-          class="m-0 grid list-none grid-cols-3 gap-r-4 p-0 max-[540px]:grid-cols-2 min-[860px]:gap-r-5"
-				>
-					{artPreview.map((p) => (
-						<li class="m-0 max-[540px]:nth-[3]:hidden" key={p.id}>
-							<a
-                class="group block aspect-[4/3] overflow-hidden border border-rule bg-paper-deep shadow-[0_1px_0_var(--color-paper-warm)_inset] transition-[border-color,transform] duration-[220ms,500ms] ease-out hover:-translate-y-1 hover:border-rule-hard"
-                href="/art/"
-                aria-label={`View ${p.data.title}`}
-              >
-                <img
-                  src={`${R2_ART_BASE}${p.data.key}`}
-                  alt=""
-                  class="block size-full scale-125 object-cover mix-blend-multiply transition-transform duration-[700ms] ease-out group-hover:scale-[1.03]"
-                  width={p.data.width}
-                  height={p.data.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div class="mt-r-5 font-mono text-label tracking-wide text-mute uppercase">
-          <a class="linklike" href="/art/">All pieces →</a>
-        </div>
-      </div>
+      <ul class="grid grid-cols-3 gap-3">
+        {artPreview.map((p) => (
+          <li key={p.id}>
+            <a
+              class="block aspect-[4/3] overflow-hidden rounded-md bg-subtle transition-opacity hover:opacity-85"
+              href="/art/"
+              aria-label={`View ${p.data.title}`}
+            >
+              <img
+                src={`${R2_ART_BASE}${p.data.key}`}
+                alt=""
+                class="size-full object-cover"
+                width={p.data.width}
+                height={p.data.height}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
     ) : (
-      <p class="max-w-[50ch] py-r-3 text-lead text-mute reveal reveal-2">
-        Pieces in progress. The first will arrive here when it is ready.
-      </p>
+      <p class="text-muted">Nothing here yet.</p>
     )}
   </section>
 </div>

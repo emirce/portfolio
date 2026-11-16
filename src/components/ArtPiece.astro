@@ -2,7 +2,6 @@
 const R2_ART_BASE = "https://assets.celovic.com/art/";
 
 interface Props {
-  number: string;
   title: string;
   year: number;
   medium?: string;
@@ -14,59 +13,31 @@ interface Props {
   eager?: boolean;
 }
 
-const {
-  number,
-  title,
-  year,
-  medium,
-  imageKey,
-  alt,
-  width,
-  height,
-  copyright,
-  eager,
-} = Astro.props;
+const { title, year, medium, imageKey, alt, width, height, copyright, eager } =
+  Astro.props;
 const src = `${R2_ART_BASE}${imageKey}`;
 
 const noteHtml = Astro.slots.has("default")
   ? await Astro.slots.render("default")
   : "";
 const hasNote = noteHtml.replace(/<[^>]*>/g, "").trim().length > 0;
+
+const meta = [year, medium, `© ${copyright}`].filter(Boolean).join(" · ");
 ---
 
-<figure class="m-0 pt-r-2 pb-r-9 first:pt-0">
-  <div class="w-full border border-rule bg-paper-deep">
-    <img
-      src={src}
-      alt={alt}
-      class="block h-auto w-full mix-blend-multiply"
-      width={width}
-      height={height}
-      loading={eager ? "eager" : "lazy"}
-      decoding="async"
-    >
-  </div>
-  <figcaption class="mt-r-4 grid max-w-[64ch] gap-r-2">
-    <p
-      class="m-0 inline-flex items-baseline gap-[0.7ch] font-mono text-eyebrow tracking-eyebrow uppercase"
-    >
-      <span class="text-accent">{number}</span>
-      <span class="tracking-normal text-faint" aria-hidden="true">——</span>
-      <span class="text-ink">{title}</span>
-    </p>
-    <p
-      class="m-0 inline-flex items-baseline gap-[0.7ch] text-small text-mute numerals"
-    >
-      <span>{year}</span>
-      {medium && (
-        <>
-          <span class="text-faint" aria-hidden="true">·</span>
-          <span>{medium}</span>
-        </>
-      )}
-      <span class="text-faint" aria-hidden="true">·</span>
-      <span>© {copyright}</span>
-    </p>
-    {hasNote && <div class="prose mt-r-3 text-body leading-prose text-mute"><slot /></div>}
+<figure>
+  <img
+    src={src}
+    alt={alt}
+    class="h-auto w-full rounded-md bg-subtle"
+    width={width}
+    height={height}
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+  >
+  <figcaption class="mt-4">
+    <p class="font-medium">{title}</p>
+    <p class="text-sm text-muted">{meta}</p>
+    {hasNote && <div class="prose mt-3 text-muted"><slot /></div>}
   </figcaption>
 </figure>

@@ -1,80 +1,44 @@
 ---
-import LabelValue from "./LabelValue.astro";
-import SectionHeader from "./SectionHeader.astro";
-
 interface Props {
-  number: string;
   title: string;
   year: number;
   tags: string[];
   summary: string;
   link?: string;
   repo?: string;
-  status: "live" | "archived" | "upcoming";
 }
 
-const { number, title, year, tags, summary, link, repo, status } = Astro.props;
-const isUpcoming = status === "upcoming";
+const { title, year, tags, summary, link, repo } = Astro.props;
+
+const meta = [year, ...tags].join(" · ");
+const links = [
+  link && { label: "Visit", href: link },
+  repo && repo !== link && { label: "Source", href: repo },
+].filter((l) => !!l);
 ---
 
-<article class="container pt-r-7">
-  <SectionHeader number={number} label="Selected Work" />
-
-  <header class="mb-r-6 reveal reveal-1">
-    <p
-      class="mb-r-4 inline-flex gap-[0.7ch] font-mono text-eyebrow tracking-eyebrow text-mute uppercase"
-    >
-      <span class="text-accent">{number}</span>
-      <span class="text-faint" aria-hidden="true">·</span>
-      <span>{year}</span>
-      {isUpcoming && (
-        <>
-          <span class="text-faint" aria-hidden="true">·</span>
-          <span class="text-mute">In preparation</span>
-        </>
-      )}
-    </p>
-    <h1
-      class="mb-r-4 max-w-[16ch] text-[clamp(2rem,6vw,4rem)] leading-[1.05] tracking-tighter [font-variation-settings:'opsz'_64]"
-    >
-      {title}
-    </h1>
-    <p class="max-w-[56ch] text-lead text-mute">{summary}</p>
+<article class="wrap pt-8">
+  <header class="mb-10">
+    <h1 class="text-2xl font-semibold tracking-tight">{title}</h1>
+    <p class="mt-2 text-muted">{summary}</p>
+    <p class="mt-4 text-sm text-muted">{meta}</p>
+    {links.length > 0 && (
+      <ul class="mt-1 flex flex-wrap gap-x-4 text-sm">
+        {links.map((l) => (
+          <li key={l.href}>
+            <a
+              class="link"
+              href={l.href}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {l.href.replace(/^https?:\/\//, "")}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
   </header>
 
-  <hr class="rule my-r-7 reveal reveal-2">
-
-  <div
-    class="grid grid-cols-[minmax(0,22ch)_minmax(0,1fr)] items-start gap-r-8 reveal reveal-3 max-[820px]:grid-cols-1 max-[820px]:gap-r-6"
-  >
-    <dl
-      class="m-0 flex flex-col gap-r-4 [&>div]:grid-cols-1 [&>div]:gap-y-[2px] [&>div]:p-0"
-    >
-      {tags.length > 0 && (
-        <LabelValue label="Tags" value={tags.join(' · ')} />
-      )}
-      {link && (
-        <LabelValue label="Repo">
-          <a class="linklike" href={link} rel="noopener noreferrer" target="_blank">
-            {link.replace(/^https?:\/\//, '')}
-          </a>
-        </LabelValue>
-      )}
-      {repo && repo !== link && (
-        <LabelValue label="Source">
-          <a class="linklike" href={repo} rel="noopener noreferrer" target="_blank">
-            {repo.replace(/^https?:\/\//, '')}
-          </a>
-        </LabelValue>
-      )}
-    </dl>
-
-    <div class="prose pb-r-7"><slot /></div>
-  </div>
-
-  <nav
-    class="mt-r-6 border-rule border-t pt-r-5 font-mono text-label tracking-wide uppercase reveal reveal-4"
-  >
-    <a class="linklike" href="/">← Back to index</a>
-  </nav>
+  <div class="prose"><slot /></div>
 </article>

@@ -24,14 +24,12 @@ if (!project) {
   description={project.summary}
 >
   <ProjectDetail
-    number={project.number}
     title={project.title}
     year={project.year}
     tags={project.tags}
     summary={project.summary}
     link={project.link}
     repo={project.repo}
-    status={project.status}
   >
     {project.body && <PortableText value={project.body} />}
   </ProjectDetail>

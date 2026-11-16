@@ -1,64 +1,23 @@
 ---
 import ContactList from "./ContactList.astro";
-import SectionHeader from "./SectionHeader.astro";
 
 const year = new Date().getFullYear();
-
-const footerContacts = [
-  {
-    label: "GitHub",
-    value: "github.com/emirce",
-    href: "https://github.com/emirce",
-    icon: "/icons/github.svg",
-  },
-  {
-    label: "X",
-    value: "x.com/emirthedev",
-    href: "https://x.com/emirthedev",
-    icon: "/icons/x.svg",
-  },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/emir-celovic",
-    href: "https://www.linkedin.com/in/emir-celovic-68316a217/",
-    icon: "/icons/linkedin.svg",
-  },
-  {
-    label: "Email",
-    value: "emir@celovic.com",
-    href: "mailto:emir@celovic.com",
-    icon: "/icons/email.svg",
-  },
-];
 ---
 
-<footer class="mt-r-9 border-rule border-t bg-paper-deep/45 pt-r-9 pb-r-7">
-  <div class="container">
-    <SectionHeader number="05" label="Elsewhere" id="elsewhere" />
-    <ContactList items={footerContacts} />
-
-    <hr class="rule mt-r-7 mb-r-5">
-
-    <div
-      class="flex flex-wrap justify-between gap-r-3 font-mono text-eyebrow tracking-eyebrow text-mute uppercase"
-    >
-      <span
-        >© {year} Emir Celovic · This portfolio is
-        <a
-          href="https://github.com/emirce/portfolio"
-          target="_blank"
-          class="border-b border-transparent text-mute transition-[color,border-color] underline underline-offset-2 duration-[220ms] ease-out hover:border-accent hover:text-accent"
-          >open-source</a
-        ></span
+<footer class="wrap mt-24 pb-10">
+  <div
+    class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-border border-t pt-6 text-sm text-muted"
+  >
+    <p>
+      © {year} Emir Celovic ·
+      <a
+        class="link"
+        href="https://github.com/emirce/portfolio"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Source</a
       >
-      <span class="inline-flex items-baseline gap-[0.8ch]">
-        <a
-          class="border-b border-transparent text-mute transition-[color,border-color] duration-[220ms] ease-out hover:border-accent hover:text-accent"
-          href="/writing/hello-world/"
-        >
-          Hello, World!
-        </a>
-      </span>
-    </div>
+    </p>
+    <ContactList />
   </div>
 </footer>

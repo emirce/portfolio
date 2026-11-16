@@ -1,16 +1,13 @@
 ---
-import InfoBanner from "../components/InfoBanner.astro";
-import SectionHeader from "../components/SectionHeader.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
   title: string;
   date: Date;
   summary: string;
-  number?: string;
 }
 
-const { title, date, summary, number = "04" } = Astro.props;
+const { title, date, summary } = Astro.props;
 
 const dateLong = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
@@ -20,37 +17,20 @@ const dateLong = new Intl.DateTimeFormat("en-GB", {
 ---
 
 <BaseLayout title={`${title} — Emir Celovic`} description={summary}>
-  <article class="container pt-r-7">
-    <SectionHeader number={number} label="Writing" />
-
-    <header class="mb-r-6 reveal reveal-1">
-      <p
-        class="mb-r-4 font-mono text-eyebrow tracking-eyebrow text-mute uppercase"
-      >
+  <article class="wrap pt-8">
+    <header class="mb-10">
+      <h1 class="text-2xl font-semibold tracking-tight">{title}</h1>
+      <p class="mt-2 text-muted">{summary}</p>
+      <p class="mt-4 text-sm text-muted">
         <time datetime={date.toISOString()}>{dateLong}</time>
+        · Written entirely by a human.
       </p>
-      <h1
-        class="mb-r-4 max-w-[22ch] text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.05] tracking-tighter [font-variation-settings:'opsz'_48]"
-      >
-        {title}
-      </h1>
-      <p class="max-w-[56ch] text-lead text-mute">{summary}</p>
     </header>
 
-    <hr class="rule my-r-7 reveal reveal-2">
+    <div class="prose"><slot /></div>
 
-    <div class="prose pb-r-8 reveal reveal-3">
-      <InfoBanner label="Note">
-        This post was written entirely by a human.
-      </InfoBanner>
-      <slot />
-    </div>
-
-    <nav
-      class="flex flex-wrap justify-between gap-r-4 border-rule border-t pt-r-6 font-mono text-label tracking-wide text-mute uppercase reveal reveal-4"
-    >
-      <a class="linklike" href="/writing/">← All notes</a>
-      <a class="linklike" href="/">Back to index</a>
-    </nav>
+    <p class="mt-16 text-sm text-muted">
+      <a class="link" href="/writing/">← All notes</a>
+    </p>
   </article>
 </BaseLayout>

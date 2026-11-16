@@ -6,31 +6,20 @@ interface Props {
 }
 
 const { title, date, slug } = Astro.props;
-const href = `/writing/${slug}/`;
-const dateFmt = new Intl.DateTimeFormat("en-GB", {
+
+const dateLabel = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
+  month: "short",
+  day: "numeric",
 }).format(date);
-const dateParts = dateFmt
-  .replace(/\./g, "·")
-  .replace(/\//g, "·")
-  .replace(/-/g, "·");
 ---
 
-<a
-  class="group grid grid-cols-[14ch_minmax(0,1fr)_2ch] items-baseline gap-r-4 border-rule border-b px-r-3 py-r-4 text-ink transition-[background-color,color,transform,border-color] duration-[280ms,220ms,360ms,220ms] ease-out first:border-t hover:-translate-y-px hover:border-rule-hard hover:bg-paper-warm hover:text-accent max-[540px]:grid-cols-[1fr_2ch] max-[540px]:grid-rows-2 max-[540px]:gap-x-r-4 max-[540px]:gap-y-[2px]"
-  href={href}
->
-  <span
-    class="font-mono text-eyebrow tracking-wide text-mute numerals max-[540px]:col-span-full"
-    >{dateParts}</span
+<li class="flex items-baseline justify-between gap-6">
+  <a class="link font-medium" href={`/writing/${slug}/`}>{title}</a>
+  <time
+    class="shrink-0 text-sm text-muted tabular-nums"
+    datetime={date.toISOString()}
   >
-  <span class="text-lead font-medium tracking-tight">{title}</span>
-  <span
-    class="text-right font-mono text-faint transition-[transform,color] duration-[280ms,220ms] ease-out group-hover:translate-x-1 group-hover:text-accent max-[540px]:hidden"
-    aria-hidden="true"
-  >
-    →
-  </span>
-</a>
+    {dateLabel}
+  </time>
+</li>
